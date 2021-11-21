@@ -1,0 +1,10 @@
+{
+  "type": "mssql",
+  "host": "localhost",
+  "port": 1433,
+  "username": "user",
+  "password": "userpassword",
+  "database": "WEB_STORE_DB",
+  "entities": [],
+  "extra": { "trustServerCertificate": true }
+}
