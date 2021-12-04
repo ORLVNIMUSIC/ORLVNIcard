@@ -9,6 +9,11 @@ export class ViewController {
   constructor(private viewService: ViewService) {}
 
   @Get('products')
+  public async showProducts(@Req() req: Request, @Res() res: Response) {
+    await this.viewService.handler(req, res);
+  }
+
+  @Get('/')
   public async showHome(@Req() req: Request, @Res() res: Response) {
     await this.viewService.handler(req, res);
   }

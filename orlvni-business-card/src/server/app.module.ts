@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PRODUCTS } from './products/product.entity';
 import { ProductModule } from './products/product.module';
+import { USERS } from './users/user.entity';
+import { UserModule } from './users/user.module';
 import { ViewModule } from './view/view.module';
 
 @Module({
@@ -18,11 +20,12 @@ import { ViewModule } from './view/view.module';
         password: 'userpassword',
         migrationsTableName: 'PRODUCTS',
         database: 'WEB_STORE_DB',
-        entities: [PRODUCTS],
+        entities: [PRODUCTS, USERS],
         extra: { trustServerCertificate: true },
       }),
     }),
     ProductModule,
+    UserModule,
     ViewModule,
   ],
   controllers: [AppController],
