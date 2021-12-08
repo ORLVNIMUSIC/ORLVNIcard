@@ -18,6 +18,9 @@ import { ViewModule } from './view/view.module';
         port: 1433,
         username: 'user',
         password: 'userpassword',
+        options: {
+          isolation: 'SNAPSHOT',
+        },
         migrationsTableName: 'PRODUCTS',
         database: 'WEB_STORE_DB',
         entities: [PRODUCTS, USERS],
@@ -31,6 +34,4 @@ import { ViewModule } from './view/view.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  constructor(private connection: Connection) {}
-}
+export class AppModule {}

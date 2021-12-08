@@ -1,24 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { PRODUCTS } from './product.entity';
 
 @Injectable()
 export class ProductService {
-  constructor(
-    @InjectRepository(PRODUCTS)
-    private productsRepository: Repository<PRODUCTS>,
-  ) {}
+  constructor(private connection: Connection) {}
 
-  findAll(): Promise<PRODUCTS[]> {
-    return this.productsRepository.find();
+  async findAll(): Promise<PRODUCTS[]> {
+    const queryRunner = this.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      return await queryRunner.manager.find(PRODUCTS);
+    } catch (err) {
+      // since we have errors lets rollback the changes we made
+      await queryRunner.rollbackTransaction();
+      return err;
+    } finally {
+      // you need to release a queryRunner which was manually instantiated
+      await queryRunner.release();
+    }
   }
 
-  findOne(id: string): Promise<PRODUCTS> {
-    return this.productsRepository.findOne(id);
-  }
-
-  async remove(id: string): Promise<void> {
-    await this.productsRepository.delete(id);
+  async findOne(id: string): Promise<PRODUCTS> {
+    const queryRunner = this.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      return await queryRunner.manager.findOne(PRODUCTS, id);
+    } catch (err) {
+      // since we have errors lets rollback the changes we made
+      await queryRunner.rollbackTransaction();
+      return err;
+    } finally {
+      // you need to release a queryRunner which was manually instantiated
+      await queryRunner.release();
+    }
   }
 }
