@@ -6,12 +6,12 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  getAll() {
-    return this.userService.findAll();
+  async getAll() {
+    return await this.userService.findAll();
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+  async getOne(@Param('id') id: string) {
+    return await this.userService.findOne(id);
   }
 }

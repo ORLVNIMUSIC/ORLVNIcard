@@ -17,6 +17,9 @@ export default function Products({ dataProducts, dataUsers }) {
                 {dataUsers.find((el) => el.user_id === item.user_id).user_name}
               </strong>
             </h4>
+            <Link href={`http://localhost:3000/products/${item.product_id}`}>
+              <a>Перейти на страницу продукта</a>
+            </Link>
             <p>{item.product_desc}</p>
             <p>{item.product_cost} р.</p>
             <p>{item.product_availability ? 'Доступен' : 'Недоступен'}</p>
@@ -29,7 +32,6 @@ export default function Products({ dataProducts, dataUsers }) {
 export async function getServerSideProps() {
   const resProducts = await fetch(`http://localhost:3000/products_db`);
   const dataProducts = await resProducts.json();
-
   if (!dataProducts) {
     return {
       notFound: true,
@@ -44,7 +46,9 @@ export async function getServerSideProps() {
       notFound: true,
     };
   }
+  console.log('Качаю данные');
+
   return {
-    props: { dataProducts, dataUsers }, // will be passed to the page component as props
+    props: { dataProducts, dataUsers },
   };
 }
