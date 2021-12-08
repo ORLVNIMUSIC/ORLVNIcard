@@ -13,10 +13,9 @@ export class ProductService {
     try {
       return await queryRunner.manager.find(PRODUCTS);
     } catch (err) {
-      await queryRunner.rollbackTransaction();
       return err;
     } finally {
-      await queryRunner.release();
+      await queryRunner.rollbackTransaction();
     }
   }
 
@@ -28,11 +27,10 @@ export class ProductService {
       return await queryRunner.manager.findOne(PRODUCTS, id);
     } catch (err) {
       // since we have errors lets rollback the changes we made
-      await queryRunner.rollbackTransaction();
       return err;
     } finally {
       // you need to release a queryRunner which was manually instantiated
-      await queryRunner.release();
+      await queryRunner.rollbackTransaction();
     }
   }
 }

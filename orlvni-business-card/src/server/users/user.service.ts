@@ -14,11 +14,10 @@ export class UserService {
       return await queryRunner.manager.find(USERS);
     } catch (err) {
       // since we have errors lets rollback the changes we made
-      await queryRunner.rollbackTransaction();
       return err;
     } finally {
       // you need to release a queryRunner which was manually instantiated
-      await queryRunner.release();
+      await queryRunner.rollbackTransaction();
     }
   }
 
@@ -30,11 +29,10 @@ export class UserService {
       return await queryRunner.manager.findOne(USERS, id);
     } catch (err) {
       // since we have errors lets rollback the changes we made
-      await queryRunner.rollbackTransaction();
       return err;
     } finally {
       // you need to release a queryRunner which was manually instantiated
-      await queryRunner.release();
+      await queryRunner.rollbackTransaction();
     }
   }
 }

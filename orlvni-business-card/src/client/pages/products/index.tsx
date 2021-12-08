@@ -46,7 +46,6 @@ export async function getServerSideProps() {
       notFound: true,
     };
   }
-  console.log('Качаю данные');
 
   return {
     props: { dataProducts, dataUsers },
