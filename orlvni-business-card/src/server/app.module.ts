@@ -7,6 +7,7 @@ import { ProductModule } from './products/product.module';
 import { USERS } from './users/user.entity';
 import { UserModule } from './users/user.module';
 import { ViewModule } from './view/view.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ViewModule } from './view/view.module';
     ProductModule,
     UserModule,
     ViewModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

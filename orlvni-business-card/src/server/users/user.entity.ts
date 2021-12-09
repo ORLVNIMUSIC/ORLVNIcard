@@ -12,6 +12,12 @@ export class USERS {
   @Column()
   user_bio: string;
 
+  @Column()
+  user_password: string;
+
+  @Column()
+  user_email: string;
+
   @OneToMany(() => PRODUCTS, (product) => product.user_id)
   products: PRODUCTS[];
 }

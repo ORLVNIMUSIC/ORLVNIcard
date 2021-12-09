@@ -36,6 +36,21 @@ export class UserService {
     }
   }
 
+  async findOneByEmail(email: string): Promise<USERS> {
+    const queryRunner = this.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      return await queryRunner.manager.findOne(USERS, { user_email: email });
+    } catch (err) {
+      // since we have errors lets rollback the changes we made
+      return err;
+    } finally {
+      // you need to release a queryRunner which was manually instantiated
+      await queryRunner.rollbackTransaction();
+    }
+  }
+
   async createOne(item: USERS): Promise<void> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();
