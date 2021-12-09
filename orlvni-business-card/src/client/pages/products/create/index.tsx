@@ -11,16 +11,15 @@ export default function CreateProduct() {
       <form>
         <label htmlFor="product_name">Краткое наименование услуги</label>
         <input
-          id="product_name"
           name="product_name"
           type="text"
           autoComplete="product"
           required
         />
         <label htmlFor="product_desc">Описание</label>
-        <input id="product_desc" name="product_desc" type="text" />
+        <input name="product_desc" type="text" />
         <label htmlFor="product_cost">Цена услуги</label>
-        <input id="product_cost" name="product_cost" type="text" required />
+        <input name="product_cost" type="text" required />
         <button type="submit">Создать</button>
       </form>
     </>

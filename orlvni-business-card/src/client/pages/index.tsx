@@ -5,7 +5,11 @@ export default function Index() {
     <>
       <h1>Hello my little boi!</h1>
       <Link href={'/products'}>
-        <a>Перейти к продуктам</a>
+        <a>Перейти к услугам</a>
+      </Link>
+      <br />
+      <Link href={'/users'}>
+        <a>Перейти к пользователям</a>
       </Link>
     </>
   );

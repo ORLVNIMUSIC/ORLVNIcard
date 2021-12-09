@@ -34,7 +34,7 @@ export default function Products({ dataProducts, dataUsers }) {
   );
 }
 export async function getServerSideProps() {
-  const resProducts = await fetch(`http://localhost:3000/products_db`);
+  const resProducts = await fetch(`http://localhost:3000/server/products`);
   const dataProducts = await resProducts.json();
   if (!dataProducts) {
     return {
@@ -42,7 +42,7 @@ export async function getServerSideProps() {
     };
   }
 
-  const resUsers = await fetch(`http://localhost:3000/users_db`);
+  const resUsers = await fetch(`http://localhost:3000/server/users`);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {

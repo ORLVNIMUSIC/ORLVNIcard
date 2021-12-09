@@ -13,7 +13,9 @@ export default function Product({ dataProducts, dataUsers }) {
 }
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
-  const resProducts = await fetch(`http://localhost:3000/products_db/${id}`);
+  const resProducts = await fetch(
+    `http://localhost:3000/server/products/${id}`,
+  );
 
   const dataProducts = await resProducts.json();
 
@@ -24,7 +26,7 @@ export async function getServerSideProps(ctx) {
   }
 
   const resUsers = await fetch(
-    `http://localhost:3000/users_db/${dataProducts.user_id}`,
+    `http://localhost:3000/server/users/${dataProducts.user_id}`,
   );
   const dataUsers = await resUsers.json();
 

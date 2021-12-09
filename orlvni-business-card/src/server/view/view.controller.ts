@@ -23,6 +23,11 @@ export class ViewController {
     await this.viewService.handler(req, res);
   }
 
+  @Get('users')
+  public async showUsers(@Req() req: Request, @Res() res: Response) {
+    await this.viewService.handler(req, res);
+  }
+
   @Get('/')
   public async showHome(@Req() req: Request, @Res() res: Response) {
     await this.viewService.handler(req, res);

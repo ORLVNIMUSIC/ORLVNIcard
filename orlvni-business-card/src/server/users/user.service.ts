@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Connection } from 'typeorm';
 import { USERS } from './user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -13,10 +14,8 @@ export class UserService {
     try {
       return await queryRunner.manager.find(USERS);
     } catch (err) {
-      // since we have errors lets rollback the changes we made
       return err;
     } finally {
-      // you need to release a queryRunner which was manually instantiated
       await queryRunner.rollbackTransaction();
     }
   }
@@ -28,10 +27,8 @@ export class UserService {
     try {
       return await queryRunner.manager.findOne(USERS, id);
     } catch (err) {
-      // since we have errors lets rollback the changes we made
       return err;
     } finally {
-      // you need to release a queryRunner which was manually instantiated
       await queryRunner.rollbackTransaction();
     }
   }
@@ -43,27 +40,37 @@ export class UserService {
     try {
       return await queryRunner.manager.findOne(USERS, { user_email: email });
     } catch (err) {
-      // since we have errors lets rollback the changes we made
       return err;
     } finally {
-      // you need to release a queryRunner which was manually instantiated
       await queryRunner.rollbackTransaction();
     }
   }
 
-  async createOne(item: USERS): Promise<void> {
+  async createOne(item: USERS): Promise<USERS> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction('READ COMMITTED');
+    const hash = await bcrypt.hash(item.user_password, 10);
+
     try {
-      await queryRunner.manager.save(item);
+      await queryRunner.query(`INSERT INTO [dbo].[USERS]
+      ([USER_ID]
+      ,[USER_NAME]
+      ,[USER_BIO]
+      ,[USER_PASSWORD]
+      ,[USER_EMAIL])
+  VALUES
+      (DEFAULT
+      ,'${item.user_name}'
+      ,'${item.user_bio}'
+      ,'${hash}'
+      ,'${item.user_email}')`);
       await queryRunner.commitTransaction();
     } catch (err) {
-      // since we have errors lets rollback the changes we made
       await queryRunner.rollbackTransaction();
     } finally {
-      // you need to release a queryRunner which was manually instantiated
       await queryRunner.release();
+      return { ...item, user_password: hash };
     }
   }
 }
