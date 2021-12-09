@@ -1,6 +1,6 @@
 import Link from 'next/dist/client/link';
 
-export default function Products({ dataProducts, dataUsers }) {
+export default function Product({ dataProducts, dataUsers }) {
   return (
     <>
       <h1>{dataProducts.product_name}</h1>
@@ -26,7 +26,6 @@ export async function getServerSideProps(ctx) {
   const resUsers = await fetch(
     `http://localhost:3000/users_db/${dataProducts.user_id}`,
   );
-  console.log(resUsers);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {

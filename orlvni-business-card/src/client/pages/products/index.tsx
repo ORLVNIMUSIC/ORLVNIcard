@@ -3,9 +3,13 @@ import Link from 'next/dist/client/link';
 export default function Products({ dataProducts, dataUsers }) {
   return (
     <>
-      <h1>Посмотри какие продукты я зафетчил из своей бд</h1>
+      <h1>Посмотри какие услуги я зафетчил из своей бд</h1>
       <Link href={'/'}>
         <a>Перейти к домашней странице</a>
+      </Link>
+      <br />
+      <Link href={'/products/create'}>
+        <a>Создать свою услугу</a>
       </Link>
       <ul>
         {dataProducts.map((item) => (
@@ -17,7 +21,7 @@ export default function Products({ dataProducts, dataUsers }) {
                 {dataUsers.find((el) => el.user_id === item.user_id).user_name}
               </strong>
             </h4>
-            <Link href={`http://localhost:3000/products/${item.product_id}`}>
+            <Link href={`/products/${item.product_id}`}>
               <a>Перейти на страницу продукта</a>
             </Link>
             <p>{item.product_desc}</p>
