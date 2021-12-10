@@ -1,35 +1,63 @@
-import { Controller, Get, Res, Req } from '@nestjs/common';
+import { Controller, Get, Res, Req, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { parse } from 'url';
+import { AuthService } from '../auth/auth.service';
 
 import { ViewService } from './view.service';
 
 @Controller('/')
 export class ViewController {
-  constructor(private viewService: ViewService) {}
+  constructor(
+    private viewService: ViewService,
+    private authService: AuthService,
+  ) {}
 
   @Get('products')
   public async showProducts(@Req() req: Request, @Res() res: Response) {
-    await this.viewService.handler(req, res);
+    if (await this.authService.checkJwt(req.cookies['jwt'])) {
+      await this.viewService.handler(req, res);
+    } else {
+      res.redirect('http://localhost:3000/login');
+    }
   }
 
   @Get('products/create')
   public async showCreateProduct(@Req() req: Request, @Res() res: Response) {
-    await this.viewService.handler(req, res);
+    if (await this.authService.checkJwt(req.cookies['jwt'])) {
+      await this.viewService.handler(req, res);
+    } else {
+      res.redirect('http://localhost:3000/login');
+    }
   }
 
   @Get('products/:id')
   public async showOneProduct(@Req() req: Request, @Res() res: Response) {
-    await this.viewService.handler(req, res);
+    if (await this.authService.checkJwt(req.cookies['jwt'])) {
+      await this.viewService.handler(req, res);
+    } else {
+      res.redirect('http://localhost:3000/login');
+    }
   }
 
   @Get('users')
   public async showUsers(@Req() req: Request, @Res() res: Response) {
-    await this.viewService.handler(req, res);
+    if (await this.authService.checkJwt(req.cookies['jwt'])) {
+      await this.viewService.handler(req, res);
+    } else {
+      res.redirect('http://localhost:3000/login');
+    }
   }
 
   @Get('/')
   public async showHome(@Req() req: Request, @Res() res: Response) {
+    if (await this.authService.checkJwt(req.cookies['jwt'])) {
+      await this.viewService.handler(req, res);
+    } else {
+      res.redirect('http://localhost:3000/login');
+    }
+  }
+
+  @Get('login')
+  public async showLogin(@Req() req: Request, @Res() res: Response) {
     await this.viewService.handler(req, res);
   }
 
