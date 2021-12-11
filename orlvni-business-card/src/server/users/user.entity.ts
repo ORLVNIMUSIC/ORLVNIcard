@@ -17,7 +17,4 @@ export class USERS {
 
   @Column()
   user_email: string;
-
-  @OneToMany(() => PRODUCTS, (product) => product.user_id)
-  products: PRODUCTS[];
 }

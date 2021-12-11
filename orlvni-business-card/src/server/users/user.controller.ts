@@ -27,7 +27,7 @@ export class UserController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async saveOne(@Body() item: CreateUserDTO): Promise<USERS> {
-    return await this.userService.createOne(item);
+  async saveOne(@Body() item: CreateUserDTO): Promise<void> {
+    await this.userService.createOne(item);
   }
 }

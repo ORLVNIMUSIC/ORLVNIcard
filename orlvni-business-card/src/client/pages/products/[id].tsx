@@ -1,6 +1,17 @@
 import Link from 'next/dist/client/link';
 
 export default function Product({ dataProducts, dataUsers }) {
+  async function UseProduct() {
+    const response = await fetch(
+      `http://localhost:3000/server/products/${dataProducts.product_id}`,
+      {
+        method: 'put',
+      },
+    );
+    if (response) {
+      console.log('Удачный UPDATE');
+    }
+  }
   return (
     <>
       <h1>{dataProducts.product_name}</h1>
@@ -8,6 +19,12 @@ export default function Product({ dataProducts, dataUsers }) {
         <a>Перейти к домашней странице</a>
       </Link>
       <p>Владелец услуги: {dataUsers.user_name}</p>
+      <button
+        disabled={!dataProducts.product_availability}
+        onClick={UseProduct}
+      >
+        Воспользоваться услугой
+      </button>
     </>
   );
 }

@@ -17,8 +17,7 @@ export default function Users({ dataUsers }) {
         'Content-Type': 'application/json',
       },
     });
-    const data = await response.json();
-    if (data) {
+    if (response) {
       console.log('Удачный INSERT');
     }
   }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Connection } from 'typeorm';
 import { CreateProductDTO } from './DTO/create.product.dto';
 import { PRODUCTS } from './product.entity';
@@ -27,10 +27,8 @@ export class ProductService {
     try {
       return await queryRunner.manager.findOne(PRODUCTS, id);
     } catch (err) {
-      // since we have errors lets rollback the changes we made
       return err;
     } finally {
-      // you need to release a queryRunner which was manually instantiated
       await queryRunner.rollbackTransaction();
     }
   }
@@ -40,13 +38,40 @@ export class ProductService {
     await queryRunner.connect();
     await queryRunner.startTransaction('READ COMMITTED');
     try {
-      await queryRunner.manager.save(item);
+      await queryRunner.query(`INSERT INTO [dbo].[PRODUCTS]
+    ([PRODUCT_ID]
+    ,[PRODUCT_NAME]
+    ,[PRODUCT_DESC]
+    ,[PRODUCT_COST]
+    ,[PRODUCT_AVAILABILITY]
+    ,[USER_ID])
+VALUES
+    (DEFAULT
+    ,'${item.product_name}'
+    ,'${item.product_desc}'
+    ,'${item.product_cost}'
+    ,1
+    ,'${item.user_id}')`);
       await queryRunner.commitTransaction();
     } catch (err) {
-      // since we have errors lets rollback the changes we made
       await queryRunner.rollbackTransaction();
     } finally {
-      // you need to release a queryRunner which was manually instantiated
+      await queryRunner.release();
+    }
+  }
+
+  async updateOne(id: string): Promise<void> {
+    const queryRunner = this.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction('READ COMMITTED');
+    try {
+      await queryRunner.query(`UPDATE [dbo].[PRODUCTS]
+      SET [PRODUCT_AVAILABILITY] = 0
+    WHERE [PRODUCT_ID] = '${id}'`);
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
       await queryRunner.release();
     }
   }

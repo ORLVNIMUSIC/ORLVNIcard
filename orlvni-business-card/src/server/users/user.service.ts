@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Connection } from 'typeorm';
 import { USERS } from './user.entity';
 import * as bcrypt from 'bcrypt';
@@ -46,7 +46,7 @@ export class UserService {
     }
   }
 
-  async createOne(item: USERS): Promise<USERS> {
+  async createOne(item: USERS): Promise<void> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction('READ COMMITTED');
@@ -70,7 +70,6 @@ export class UserService {
       await queryRunner.rollbackTransaction();
     } finally {
       await queryRunner.release();
-      return { ...item, user_password: hash };
     }
   }
 }

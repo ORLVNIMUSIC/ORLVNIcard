@@ -22,6 +22,8 @@ export class AuthController {
         },
       );
 
+      response.cookie('user_id', validatedUser.user_id);
+
       return { message: 'success' };
     }
     return { message: 'denied' };
@@ -29,9 +31,8 @@ export class AuthController {
 
   @Post('/logout')
   LogOut(@Res({ passthrough: true }) response: Response) {
-    console.log('not working');
-
     response.clearCookie('jwt');
+    response.clearCookie('user_id');
     return {
       message: 'success',
     };
