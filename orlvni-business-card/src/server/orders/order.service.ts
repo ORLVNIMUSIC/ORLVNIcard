@@ -34,9 +34,10 @@ VALUES
     ,'${item.product_id}'
     ,'${item.user_id}')`);
       await queryRunner.commitTransaction();
-      return { message: 'Good' };
+      return { message: 'success' };
     } catch (err) {
       await queryRunner.rollbackTransaction();
+      return { message: 'denied' };
     } finally {
       await queryRunner.release();
     }

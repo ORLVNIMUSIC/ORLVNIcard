@@ -70,6 +70,11 @@ export class ViewController {
     await this.viewService.handler(req, res);
   }
 
+  @Get('signup')
+  public async showSignup(@Req() req: Request, @Res() res: Response) {
+    await this.viewService.handler(req, res);
+  }
+
   @Get('_next*')
   public async assets(@Req() req: Request, @Res() res: Response) {
     await this.viewService.handler(req, res);

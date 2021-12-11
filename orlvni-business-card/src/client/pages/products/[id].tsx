@@ -18,20 +18,25 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
         },
       },
     );
-    console.log(responseCreateOrder);
 
     const createOrderData = await responseCreateOrder.json();
 
-    if (createOrderData.message == 'Good') {
+    if (createOrderData.message == 'success') {
       const responseUpdateProduct = await fetch(
         `http://localhost:3000/server/products/${dataProducts.product_id}`,
         {
           method: 'put',
         },
       );
-      if (responseUpdateProduct) {
-        console.log('Удачный UPDATE');
-        router.push('/');
+      const dataUpdateProduct = await responseUpdateProduct.json();
+      switch (dataUpdateProduct.message) {
+        case 'success':
+          console.log('Удачный UPDATE');
+          router.push('/orders');
+          break;
+        case 'denied':
+          console.log('Неудачный UPDATE');
+          break;
       }
     }
   }

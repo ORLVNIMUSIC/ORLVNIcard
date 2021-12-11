@@ -27,13 +27,13 @@ export class ProductController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async saveOne(@Body() item: CreateProductDTO): Promise<void> {
-    await this.productService.createOne(item);
+  async saveOne(@Body() item: CreateProductDTO): Promise<object> {
+    return await this.productService.createOne(item);
   }
 
   @Put(':id')
   @HttpCode(HttpStatus.OK)
-  async updateOne(@Param('id') id: string): Promise<void> {
-    await this.productService.updateOne(id);
+  async updateOne(@Param('id') id: string): Promise<object> {
+    return await this.productService.updateOne(id);
   }
 }

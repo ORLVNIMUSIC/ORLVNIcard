@@ -46,7 +46,7 @@ export class UserService {
     }
   }
 
-  async createOne(item: USERS): Promise<void> {
+  async createOne(item: USERS): Promise<object> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction('READ COMMITTED');
@@ -66,8 +66,10 @@ export class UserService {
       ,'${hash}'
       ,'${item.user_email}')`);
       await queryRunner.commitTransaction();
+      return { message: 'success' };
     } catch (err) {
       await queryRunner.rollbackTransaction();
+      return { message: 'denied' };
     } finally {
       await queryRunner.release();
     }

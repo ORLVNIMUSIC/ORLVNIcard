@@ -18,11 +18,15 @@ export class AuthController {
         'jwt',
         (await this.authService.login(validatedUser)).access_token,
         {
+          expires: new Date(Date.now() + 86400000),
           httpOnly: true,
         },
       );
 
-      response.cookie('user_id', validatedUser.user_id);
+      response.cookie('user_id', validatedUser.user_id, {
+        expires: new Date(Date.now() + 86400000),
+        httpOnly: false,
+      });
 
       return { message: 'success' };
     }

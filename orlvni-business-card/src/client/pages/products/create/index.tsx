@@ -1,7 +1,9 @@
 import { GetServerSideProps } from 'next';
 import Link from 'next/dist/client/link';
+import { useRouter } from 'next/dist/client/router';
 
 export default function CreateProduct({ cookies }) {
+  const router = useRouter();
   async function createProduct(event) {
     event.preventDefault();
 
@@ -23,8 +25,15 @@ export default function CreateProduct({ cookies }) {
         'Content-Type': 'application/json',
       },
     });
-    if (response) {
-      console.log('Удачный INSERT');
+    const dataUpdateProduct = await response.json();
+    switch (dataUpdateProduct.message) {
+      case 'success':
+        console.log('Удачный INSERT');
+        router.push('/products');
+        break;
+      case 'denied':
+        console.log('Неудачный INSERT');
+        break;
     }
   }
   return (

@@ -23,6 +23,7 @@ export default function Index() {
       <Link href={'/users'}>
         <a>Перейти к пользователям</a>
       </Link>
+      <br />
       <button onClick={LogOut}>Выйти из аккаунта</button>
     </>
   );

@@ -33,7 +33,7 @@ export class ProductService {
     }
   }
 
-  async createOne(item: CreateProductDTO): Promise<void> {
+  async createOne(item: CreateProductDTO): Promise<object> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction('READ COMMITTED');
@@ -53,14 +53,16 @@ VALUES
     ,1
     ,'${item.user_id}')`);
       await queryRunner.commitTransaction();
+      return { message: 'success' };
     } catch (err) {
       await queryRunner.rollbackTransaction();
+      return { message: 'denied' };
     } finally {
       await queryRunner.release();
     }
   }
 
-  async updateOne(id: string): Promise<void> {
+  async updateOne(id: string): Promise<object> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction('READ COMMITTED');
@@ -69,8 +71,10 @@ VALUES
       SET [PRODUCT_AVAILABILITY] = 0
     WHERE [PRODUCT_ID] = '${id}'`);
       await queryRunner.commitTransaction();
+      return { message: 'success' };
     } catch (err) {
       await queryRunner.rollbackTransaction();
+      return { message: 'denied' };
     } finally {
       await queryRunner.release();
     }
