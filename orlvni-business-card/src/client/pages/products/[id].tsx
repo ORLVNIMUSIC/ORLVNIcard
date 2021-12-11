@@ -1,15 +1,38 @@
 import Link from 'next/dist/client/link';
+import { useRouter } from 'next/dist/client/router';
 
-export default function Product({ dataProducts, dataUsers }) {
+export default function Product({ dataProducts, dataUsers, cookies }) {
+  const router = useRouter();
   async function UseProduct() {
-    const response = await fetch(
-      `http://localhost:3000/server/products/${dataProducts.product_id}`,
+    const responseCreateOrder = await fetch(
+      `http://localhost:3000/server/orders/`,
       {
-        method: 'put',
+        method: 'post',
+        body: JSON.stringify({
+          oder_id: 'default',
+          product_id: dataProducts.product_id,
+          user_id: cookies.user_id,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
     );
-    if (response) {
-      console.log('Удачный UPDATE');
+    console.log(responseCreateOrder);
+
+    const createOrderData = await responseCreateOrder.json();
+
+    if (createOrderData.message == 'Good') {
+      const responseUpdateProduct = await fetch(
+        `http://localhost:3000/server/products/${dataProducts.product_id}`,
+        {
+          method: 'put',
+        },
+      );
+      if (responseUpdateProduct) {
+        console.log('Удачный UPDATE');
+        router.push('/');
+      }
     }
   }
   return (
@@ -30,6 +53,9 @@ export default function Product({ dataProducts, dataUsers }) {
 }
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
+  const { req } = ctx;
+
+  const { cookies } = req;
   const resProducts = await fetch(
     `http://localhost:3000/server/products/${id}`,
   );
@@ -54,6 +80,6 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
-    props: { dataProducts, dataUsers },
+    props: { dataProducts, dataUsers, cookies },
   };
 }

@@ -16,6 +16,10 @@ export default function Index() {
         <a>Перейти к услугам</a>
       </Link>
       <br />
+      <Link href={'/orders'}>
+        <a>Перейти к моим заказам</a>
+      </Link>
+      <br />
       <Link href={'/users'}>
         <a>Перейти к пользователям</a>
       </Link>

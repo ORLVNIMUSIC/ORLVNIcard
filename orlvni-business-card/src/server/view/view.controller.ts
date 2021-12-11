@@ -20,6 +20,15 @@ export class ViewController {
     }
   }
 
+  @Get('orders')
+  public async showOrders(@Req() req: Request, @Res() res: Response) {
+    if (await this.authService.checkJwt(req.cookies['jwt'])) {
+      await this.viewService.handler(req, res);
+    } else {
+      res.redirect('http://localhost:3000/login');
+    }
+  }
+
   @Get('products/create')
   public async showCreateProduct(@Req() req: Request, @Res() res: Response) {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {

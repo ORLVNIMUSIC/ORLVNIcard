@@ -8,6 +8,8 @@ import { USERS } from './users/user.entity';
 import { UserModule } from './users/user.module';
 import { ViewModule } from './view/view.module';
 import { AuthModule } from './auth/auth.module';
+import { OrderModule } from './orders/order.module';
+import { ORDERS } from './orders/order.entity';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { AuthModule } from './auth/auth.module';
         },
         migrationsTableName: 'PRODUCTS',
         database: 'WEB_STORE_DB',
-        entities: [PRODUCTS, USERS],
+        entities: [PRODUCTS, USERS, ORDERS],
         extra: { trustServerCertificate: true },
       }),
     }),
@@ -31,6 +33,7 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     ViewModule,
     AuthModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
