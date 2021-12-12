@@ -38,7 +38,7 @@ export default function CreateProduct({ cookies }) {
     }
   }
   return (
-    <MainLayout>
+    <MainLayout title={'Create product'}>
       <h1>Страница создания услуги</h1>
       <Link href={'/'}>
         <a>Перейти к домашней странице</a>
@@ -51,11 +51,24 @@ export default function CreateProduct({ cookies }) {
           type="text"
           autoComplete="product"
           required
+          pattern="[^'&quot;]+$"
+          title="Кавычки вида ' и &quot; нельзя вводить"
         />
         <label htmlFor="product_desc">Описание</label>
-        <input name="product_desc" type="text" />
+        <input
+          name="product_desc"
+          type="text"
+          pattern="[^'&quot;]+$"
+          title="Кавычки вида ' и &quot; нельзя вводить"
+        />
         <label htmlFor="product_cost">Цена услуги</label>
-        <input name="product_cost" type="text" required />
+        <input
+          name="product_cost"
+          type="text"
+          required
+          pattern="[^'&quot;]+$"
+          title="Кавычки вида ' и &quot; нельзя вводить"
+        />
         <button type="submit">Создать</button>
       </form>
     </MainLayout>

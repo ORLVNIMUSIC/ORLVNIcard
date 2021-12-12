@@ -34,13 +34,37 @@ export default function Login() {
       <h1>Укажите данные для регистрации</h1>
       <form onSubmit={createUser}>
         <label htmlFor="user_email">Электронная почта</label>
-        <input name="user_email" type="text" required />
+        <input
+          name="user_email"
+          type="text"
+          required
+          pattern="[^'&quot;]+$"
+          title="Кавычки вида ' и &quot; нельзя вводить"
+        />
         <label htmlFor="user_password">Пароль</label>
-        <input name="user_password" type="text" required />
+        <input
+          name="user_password"
+          type="text"
+          required
+          pattern="[^'&quot;]+$"
+          title="Кавычки вида ' и &quot; нельзя вводить"
+        />
         <label htmlFor="user_name">Имя</label>
-        <input name="user_name" type="text" autoComplete="name" required />
+        <input
+          name="user_name"
+          type="text"
+          autoComplete="name"
+          required
+          pattern="[^'&quot;]+$"
+          title="Кавычки вида ' и &quot; нельзя вводить"
+        />
         <label htmlFor="user_bio">Биография</label>
-        <input name="user_bio" type="text" />
+        <input
+          name="user_bio"
+          type="text"
+          pattern="[^'&quot;]+$"
+          title="Кавычки вида ' и &quot; нельзя вводить"
+        />
         <button type="submit">Регистрация</button>
       </form>
       <h2>Уже зарегистрированны?</h2>

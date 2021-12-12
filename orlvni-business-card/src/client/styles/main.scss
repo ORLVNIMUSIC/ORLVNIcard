@@ -2,8 +2,18 @@ body {
   margin: 0;
   padding: 0;
   padding-top: 40px;
-  background-color: #31ecc4;
   font-family: 'Noto Sans', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: block;
+  width: 50%;
+  margin: 3px auto;
+  border: 3px solid darkblue;
+  padding: 10px;
+  border-radius: 15px;
 }
 $lrspace: 5%;
 nav {

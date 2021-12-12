@@ -3,20 +3,20 @@ import MainLayout from '../../layouts/main.layout';
 
 export default function Users({ dataUsers }) {
   return (
-    <MainLayout>
-      <h1>Посмотри какие услуги я зафетчил из своей бд</h1>
-      <Link href={'/'}>
-        <a>Перейти к домашней странице</a>
-      </Link>
-      <ul>
-        {dataUsers.map((item) => (
-          <li key={item.user_id}>
-            <p>{item.user_name}</p>
-            <p>{item.user_bio}</p>
-            <p>{item.user_email}</p>
-          </li>
-        ))}
-      </ul>
+    <MainLayout title={'Users'}>
+      <div className="container">
+        <h1>Посмотри какие услуги я зафетчил из своей бд</h1>
+        <Link href={'/'}>
+          <a>Перейти к домашней странице</a>
+        </Link>
+      </div>
+      {dataUsers.map((item) => (
+        <div className="container">
+          <p>{item.user_name}</p>
+          <p>{item.user_bio}</p>
+          <p>{item.user_email}</p>
+        </div>
+      ))}
     </MainLayout>
   );
 }

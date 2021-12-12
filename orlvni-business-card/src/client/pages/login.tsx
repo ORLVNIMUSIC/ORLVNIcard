@@ -31,9 +31,21 @@ export default function Login() {
       <h1>Войдите в систему</h1>
       <form onSubmit={doLogIn}>
         <label htmlFor="user_email">Электронная почта</label>
-        <input name="user_email" type="text" required />
+        <input
+          name="user_email"
+          type="text"
+          required
+          pattern="[^'&quot;]+$"
+          title="Кавычки вида ' и &quot; нельзя вводить"
+        />
         <label htmlFor="user_password">Пароль</label>
-        <input name="user_password" type="text" required />
+        <input
+          name="user_password"
+          type="text"
+          required
+          pattern="[^'&quot;]+$"
+          title="Кавычки вида ' и &quot; нельзя вводить"
+        />
         <button type="submit">Войти</button>
       </form>
       <h2>Не зарегистрированны в системе?</h2>

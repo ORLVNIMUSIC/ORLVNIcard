@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 
-export default function MainLayout({ children }) {
+export default function MainLayout({ children, title }) {
   const router = useRouter();
   async function LogOut() {
     await fetch('http://localhost:3000/server/logout', {
@@ -11,6 +11,10 @@ export default function MainLayout({ children }) {
   }
   return (
     <>
+      <head>
+        <title>{title} | Avito на минималках</title>
+        <meta charSet="utf-8" />
+      </head>
       <nav>
         <Link href={'/'}>
           <a>Домашняя страница</a>

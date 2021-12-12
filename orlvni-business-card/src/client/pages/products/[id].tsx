@@ -10,7 +10,7 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
       {
         method: 'post',
         body: JSON.stringify({
-          oder_id: 'default',
+          order_id: 'default',
           product_id: dataProducts.product_id,
           user_id: cookies.user_id,
         }),
@@ -22,27 +22,33 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
 
     const createOrderData = await responseCreateOrder.json();
 
-    if (createOrderData.message == 'success') {
-      const responseUpdateProduct = await fetch(
-        `http://localhost:3000/server/products/${dataProducts.product_id}`,
-        {
-          method: 'put',
-        },
-      );
-      const dataUpdateProduct = await responseUpdateProduct.json();
-      switch (dataUpdateProduct.message) {
-        case 'success':
-          console.log('Удачный UPDATE');
-          router.push('/orders');
-          break;
-        case 'denied':
-          console.log('Неудачный UPDATE');
-          break;
-      }
+    switch (createOrderData.message) {
+      case 'success':
+        const responseUpdateProduct = await fetch(
+          `http://localhost:3000/server/products/${dataProducts.product_id}`,
+          {
+            method: 'put',
+          },
+        );
+        const dataUpdateProduct = await responseUpdateProduct.json();
+        switch (dataUpdateProduct.message) {
+          case 'success':
+            console.log('Удачный UPDATE');
+            router.push('/orders');
+            break;
+          case 'denied':
+            console.log('Неудачный UPDATE');
+            break;
+        }
+        break;
+      case 'denied':
+        console.log('Неудачный UPDATE');
+        router.reload();
+        break;
     }
   }
   return (
-    <MainLayout>
+    <MainLayout title={'Product'}>
       <h1>{dataProducts.product_name}</h1>
       <Link href={'/'}>
         <a>Перейти к домашней странице</a>

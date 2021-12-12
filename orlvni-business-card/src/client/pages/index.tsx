@@ -1,11 +1,10 @@
-import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import MainLayout from '../layouts/main.layout';
 
 export default function Index() {
   return (
-    <MainLayout>
-      <h1>Hello my little boi!</h1>
+    <MainLayout title={'Home'}>
+      <h1>Добро пожаловать на Avito на минималках</h1>
       <Link href={'/products'}>
         <a>Перейти к услугам</a>
       </Link>

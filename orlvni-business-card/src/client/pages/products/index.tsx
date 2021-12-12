@@ -3,34 +3,34 @@ import MainLayout from '../../layouts/main.layout';
 
 export default function Products({ dataProducts, dataUsers }) {
   return (
-    <MainLayout>
-      <h1>Посмотри какие услуги я зафетчил из своей бд</h1>
-      <Link href={'/'}>
-        <a>Перейти к домашней странице</a>
-      </Link>
-      <br />
-      <Link href={'/products/create'}>
-        <a>Создать свою услугу</a>
-      </Link>
-      <ul>
-        {dataProducts.map((item) => (
-          <li key={item.product_id}>
-            <h3>{item.product_name}</h3>
-            <h4>
-              Владелец услуги:{' '}
-              <strong>
-                {dataUsers.find((el) => el.user_id === item.user_id).user_name}
-              </strong>
-            </h4>
-            <Link href={`/products/${item.product_id}`}>
-              <a>Перейти на страницу продукта</a>
-            </Link>
-            <p>{item.product_desc}</p>
-            <p>{item.product_cost} р.</p>
-            <p>{item.product_availability ? 'Доступен' : 'Недоступен'}</p>
-          </li>
-        ))}
-      </ul>
+    <MainLayout title={'Products'}>
+      <div className="container">
+        <h1>Посмотри какие услуги я зафетчил из своей бд</h1>
+        <Link href={'/'}>
+          <a>Перейти к домашней странице</a>
+        </Link>
+        <br />
+        <Link href={'/products/create'}>
+          <a>Создать свою услугу</a>
+        </Link>
+      </div>
+      {dataProducts.map((item) => (
+        <div className="container">
+          <h3>{item.product_name}</h3>
+          <h4>
+            Владелец услуги:{' '}
+            <strong>
+              {dataUsers.find((el) => el.user_id === item.user_id).user_name}
+            </strong>
+          </h4>
+          <Link href={`/products/${item.product_id}`}>
+            <a>Перейти на страницу продукта</a>
+          </Link>
+          <p>{item.product_desc}</p>
+          <p>{item.product_cost} р.</p>
+          <p>{item.product_availability ? 'Доступен' : 'Недоступен'}</p>
+        </div>
+      ))}
     </MainLayout>
   );
 }

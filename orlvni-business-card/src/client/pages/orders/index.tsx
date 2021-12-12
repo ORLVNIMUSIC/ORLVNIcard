@@ -3,7 +3,7 @@ import MainLayout from '../../layouts/main.layout';
 
 export default function Orders({ dataUsers, dataProducts }) {
   return (
-    <MainLayout>
+    <MainLayout title={'My orders'}>
       <h1>Заказы, которые вы сделали</h1>
       <Link href={'/'}>
         <a>Перейти к домашней странице</a>
