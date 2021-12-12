@@ -1,16 +1,10 @@
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
+import MainLayout from '../layouts/main.layout';
 
 export default function Index() {
-  const router = useRouter();
-  async function LogOut() {
-    await fetch('http://localhost:3000/server/logout', {
-      method: 'post',
-    });
-    router.reload();
-  }
   return (
-    <>
+    <MainLayout>
       <h1>Hello my little boi!</h1>
       <Link href={'/products'}>
         <a>Перейти к услугам</a>
@@ -23,8 +17,6 @@ export default function Index() {
       <Link href={'/users'}>
         <a>Перейти к пользователям</a>
       </Link>
-      <br />
-      <button onClick={LogOut}>Выйти из аккаунта</button>
-    </>
+    </MainLayout>
   );
 }

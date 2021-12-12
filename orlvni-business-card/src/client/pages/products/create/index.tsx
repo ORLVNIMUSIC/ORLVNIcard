@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Link from 'next/dist/client/link';
 import { useRouter } from 'next/dist/client/router';
+import MainLayout from '../../../layouts/main.layout';
 
 export default function CreateProduct({ cookies }) {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function CreateProduct({ cookies }) {
     }
   }
   return (
-    <>
+    <MainLayout>
       <h1>Страница создания услуги</h1>
       <Link href={'/'}>
         <a>Перейти к домашней странице</a>
@@ -57,7 +58,7 @@ export default function CreateProduct({ cookies }) {
         <input name="product_cost" type="text" required />
         <button type="submit">Создать</button>
       </form>
-    </>
+    </MainLayout>
   );
 }
 

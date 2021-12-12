@@ -1,8 +1,9 @@
 import Link from 'next/dist/client/link';
+import MainLayout from '../../layouts/main.layout';
 
 export default function Orders({ dataUsers, dataProducts }) {
   return (
-    <>
+    <MainLayout>
       <h1>Заказы, которые вы сделали</h1>
       <Link href={'/'}>
         <a>Перейти к домашней странице</a>
@@ -26,7 +27,7 @@ export default function Orders({ dataUsers, dataProducts }) {
           </li>
         ))}
       </ul>
-    </>
+    </MainLayout>
   );
 }
 export async function getServerSideProps(ctx) {

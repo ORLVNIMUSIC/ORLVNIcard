@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 40px;
+  background-color: #31ecc4;
+  font-family: 'Noto Sans', sans-serif;
+}
+$lrspace: 5%;
+nav {
+  position: fixed;
+  height: 40px;
+  left: $lrspace;
+  right: $lrspace;
+  top: 0;
+  background-color: darkblue;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+
+  a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

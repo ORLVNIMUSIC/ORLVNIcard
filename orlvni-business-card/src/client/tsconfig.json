@@ -20,7 +20,9 @@
     "next.config.js",
     "pages/**/*.ts",
     "pages/**/*.tsx",
-    "pages/index.tsx"
+    "pages/index.tsx",
+    "pages/_app.tsx",
+    "pages/_document.tsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,8 +1,9 @@
 import Link from 'next/dist/client/link';
+import MainLayout from '../../layouts/main.layout';
 
 export default function Users({ dataUsers }) {
   return (
-    <>
+    <MainLayout>
       <h1>Посмотри какие услуги я зафетчил из своей бд</h1>
       <Link href={'/'}>
         <a>Перейти к домашней странице</a>
@@ -16,7 +17,7 @@ export default function Users({ dataUsers }) {
           </li>
         ))}
       </ul>
-    </>
+    </MainLayout>
   );
 }
 export async function getServerSideProps() {

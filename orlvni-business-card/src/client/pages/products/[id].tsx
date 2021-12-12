@@ -1,5 +1,6 @@
 import Link from 'next/dist/client/link';
 import { useRouter } from 'next/dist/client/router';
+import MainLayout from '../../layouts/main.layout';
 
 export default function Product({ dataProducts, dataUsers, cookies }) {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
     }
   }
   return (
-    <>
+    <MainLayout>
       <h1>{dataProducts.product_name}</h1>
       <Link href={'/'}>
         <a>Перейти к домашней странице</a>
@@ -53,7 +54,7 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
       >
         Воспользоваться услугой
       </button>
-    </>
+    </MainLayout>
   );
 }
 export async function getServerSideProps(ctx) {
