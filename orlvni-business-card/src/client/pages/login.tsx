@@ -6,7 +6,8 @@ export default function Login() {
   const router = useRouter();
   async function doLogIn(event) {
     event.preventDefault();
-    const response = await fetch('http://localhost:3000/server/login', {
+
+    const response = await fetch(`${process.env.ORIGIN}/server/login`, {
       method: 'post',
       body: JSON.stringify({
         user_password: event.target.user_password.value,

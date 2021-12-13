@@ -37,7 +37,7 @@ export default function Products({ dataProducts, dataUsers, cookies }) {
 export async function getServerSideProps(ctx) {
   const { req } = ctx;
   const { cookies } = req;
-  const resProducts = await fetch(`http://localhost:3000/server/products`);
+  const resProducts = await fetch(`${process.env.ORIGIN}/server/products`);
   const dataProducts = await resProducts.json();
   if (!dataProducts) {
     return {
@@ -45,7 +45,7 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const resUsers = await fetch(`http://localhost:3000/server/users`);
+  const resUsers = await fetch(`${process.env.ORIGIN}/server/users`);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {

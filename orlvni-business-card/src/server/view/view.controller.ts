@@ -16,7 +16,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect('http://localhost:3000/login');
+      res.redirect(`${process.env.ORIGIN}/login`);
     }
   }
 
@@ -25,7 +25,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect('http://localhost:3000/login');
+      res.redirect(`${process.env.ORIGIN}/login`);
     }
   }
 
@@ -34,7 +34,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect('http://localhost:3000/login');
+      res.redirect(`${process.env.ORIGIN}/login`);
     }
   }
 
@@ -43,7 +43,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect('http://localhost:3000/login');
+      res.redirect(`${process.env.ORIGIN}/login`);
     }
   }
 
@@ -52,7 +52,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect('http://localhost:3000/login');
+      res.redirect(`${process.env.ORIGIN}/login`);
     }
   }
 
@@ -61,7 +61,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect('http://localhost:3000/login');
+      res.redirect(`${process.env.ORIGIN}/login`);
     }
   }
 

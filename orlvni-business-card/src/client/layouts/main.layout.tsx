@@ -8,7 +8,8 @@ export default function MainLayout({ children, title, name }) {
   const [layoutTitle, setTitle] = useState();
   useEffect(() => setTitle(title));
   async function LogOut() {
-    await fetch('http://localhost:3000/server/logout', {
+    console.log(process.env.ORIGIN);
+    await fetch(`${process.env.ORIGIN}/server/logout`, {
       method: 'post',
     });
     router.reload();

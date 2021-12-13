@@ -6,7 +6,7 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
   const router = useRouter();
   async function UseProduct() {
     const responseCreateOrder = await fetch(
-      `http://localhost:3000/server/orders/`,
+      `${process.env.ORIGIN}/server/orders/`,
       {
         method: 'post',
         body: JSON.stringify({
@@ -25,7 +25,7 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
     switch (createOrderData.message) {
       case 'success':
         const responseUpdateProduct = await fetch(
-          `http://localhost:3000/server/products/${dataProducts.product_id}`,
+          `${process.env.ORIGIN}/server/products/${dataProducts.product_id}`,
           {
             method: 'put',
           },
@@ -70,7 +70,7 @@ export async function getServerSideProps(ctx) {
 
   const { cookies } = req;
   const resProducts = await fetch(
-    `http://localhost:3000/server/products/${id}`,
+    `${process.env.ORIGIN}/server/products/${id}`,
   );
 
   const dataProducts = await resProducts.json();
@@ -82,7 +82,7 @@ export async function getServerSideProps(ctx) {
   }
 
   const resUsers = await fetch(
-    `http://localhost:3000/server/users/${dataProducts.user_id}`,
+    `${process.env.ORIGIN}/server/users/${dataProducts.user_id}`,
   );
   const dataUsers = await resUsers.json();
 

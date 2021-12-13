@@ -9,11 +9,11 @@ export default function CreateProduct({ cookies }) {
     event.preventDefault();
 
     const userResponse = await fetch(
-      `http://localhost:3000/server/users/${cookies.user_id}`,
+      `${process.env.ORIGIN}/server/users/${cookies.user_id}`,
     );
     const userData = await userResponse.json();
 
-    const response = await fetch('http://localhost:3000/server/products', {
+    const response = await fetch(`${process.env.ORIGIN}/server/products`, {
       method: 'post',
       body: JSON.stringify({
         product_id: 'default',

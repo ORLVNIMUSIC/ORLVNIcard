@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
-import { USERS } from '../users/user.entity';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class PRODUCTS {
