@@ -1,12 +1,13 @@
 import styles from '../styles/signin.module.scss';
+import Head from 'next/head';
 
 export default function SigninLayout({ children, title }) {
   return (
     <>
-      <head>
+      <Head>
         <title>{title} | Avito на минималках</title>
         <meta charSet="utf-8" />
-      </head>
+      </Head>
       <nav></nav>
       <main>
         <div className={styles.modal}>

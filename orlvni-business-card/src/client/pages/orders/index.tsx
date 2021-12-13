@@ -11,7 +11,7 @@ export default function Orders({ dataUsers, dataProducts, cookies }) {
         </Link>
       </div>
       {dataProducts.map((item) => (
-        <div className="container">
+        <div className="container" key={item.product_id}>
           <h3>{item.product_name}</h3>
           <h4>
             Владелец услуги:{' '}

@@ -11,7 +11,7 @@ export default function Users({ dataUsers, cookies }) {
         </Link>
       </div>
       {dataUsers.map((item) => (
-        <div className="container">
+        <div className="container" key={item.user_id}>
           <p>{item.user_name}</p>
           <p>{item.user_bio}</p>
           <p>{item.user_email}</p>

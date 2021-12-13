@@ -5,7 +5,7 @@ export default function Products({ dataProducts, dataUsers, cookies }) {
   return (
     <MainLayout title={'Products'} name={cookies.user_name.split(' ')[0]}>
       <div className="container header">
-        <h1>Посмотри какие услуги я зафетчил из своей бд</h1>
+        <h1>Список всех услуг</h1>
         <Link href={'/'}>
           <a>Перейти к домашней странице</a>
         </Link>
@@ -15,7 +15,7 @@ export default function Products({ dataProducts, dataUsers, cookies }) {
         </Link>
       </div>
       {dataProducts.map((item) => (
-        <div className="container">
+        <div className="container" key={item.product_id}>
           <h3>{item.product_name}</h3>
           <h4>
             Предоставляет услугу:{' '}

@@ -1,4 +1,5 @@
 import { useRouter } from 'next/dist/client/router';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -14,9 +15,9 @@ export default function MainLayout({ children, title, name }) {
   }
   return (
     <>
-      <head>
+      <Head>
         <title>{layoutTitle} | Avito на минималках</title>
-      </head>
+      </Head>
       <nav>
         <div
           style={{
