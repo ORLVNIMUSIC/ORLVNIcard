@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 require('dotenv').config({
-  path: '../secrets.env',
+  path: './secrets.env',
 });
 import * as cookieParser from 'cookie-parser';
 
