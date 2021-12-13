@@ -28,6 +28,14 @@ export class UserController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async saveOne(@Body() item: CreateUserDTO): Promise<object> {
-    return await this.userService.createOne(item);
+    const user = await this.userService.findOneByEmail(item.user_email);
+
+    if (!(user instanceof USERS)) {
+      return await this.userService.createOne(item);
+    } else {
+      return {
+        message: 'email is used',
+      };
+    }
   }
 }

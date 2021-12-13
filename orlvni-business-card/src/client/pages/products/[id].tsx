@@ -33,16 +33,15 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
         const dataUpdateProduct = await responseUpdateProduct.json();
         switch (dataUpdateProduct.message) {
           case 'success':
-            console.log('Удачный UPDATE');
             router.push('/orders');
             break;
           case 'denied':
-            console.log('Неудачный UPDATE');
+            alert('Что-то пошло не так, попробуйте еще раз');
             break;
         }
         break;
       case 'denied':
-        console.log('Неудачный UPDATE');
+        alert('Услугу уже использовали');
         router.reload();
         break;
     }

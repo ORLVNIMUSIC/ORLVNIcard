@@ -29,11 +29,10 @@ export default function CreateProduct({ cookies }) {
     const dataUpdateProduct = await response.json();
     switch (dataUpdateProduct.message) {
       case 'success':
-        console.log('Удачный INSERT');
         router.push('/products');
         break;
       case 'denied':
-        console.log('Неудачный INSERT');
+        alert('Что-то пошло не так, попробуйте еще раз');
         break;
     }
   }

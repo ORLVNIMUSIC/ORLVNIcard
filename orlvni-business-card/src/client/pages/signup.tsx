@@ -20,13 +20,16 @@ export default function Login() {
       },
     });
     const data = await response.json();
+
     switch (data.message) {
       case 'success':
-        console.log('Удачный SIGNUP');
         router.push('/login');
         break;
       case 'denied':
-        console.log('Неудачный SIGNUP');
+        alert('Что-то пошло не так, попробуйте еще раз');
+        break;
+      case 'email is used':
+        alert('Эта почта уже занята');
         break;
     }
   }

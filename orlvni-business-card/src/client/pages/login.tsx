@@ -19,11 +19,10 @@ export default function Login() {
     const data = await response.json();
     switch (data.message) {
       case 'success':
-        console.log('Удачный LogIn');
         router.push('/');
         break;
       case 'denied':
-        console.log('Неудачный LogIn');
+        alert('Ввели неверные данные');
         break;
     }
   }
