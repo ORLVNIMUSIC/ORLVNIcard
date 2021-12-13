@@ -28,6 +28,11 @@ export class AuthController {
         httpOnly: false,
       });
 
+      response.cookie('user_name', validatedUser.user_name.trim(), {
+        expires: new Date(Date.now() + 86400000),
+        httpOnly: false,
+      });
+
       return { message: 'success' };
     }
     return { message: 'denied' };
@@ -37,6 +42,7 @@ export class AuthController {
   LogOut(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('jwt');
     response.clearCookie('user_id');
+    response.clearCookie('user_name');
     return {
       message: 'success',
     };

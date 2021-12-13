@@ -1,8 +1,11 @@
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-export default function MainLayout({ children, title }) {
+export default function MainLayout({ children, title, name }) {
   const router = useRouter();
+  const [layoutTitle, setTitle] = useState();
+  useEffect(() => setTitle(title));
   async function LogOut() {
     await fetch('http://localhost:3000/server/logout', {
       method: 'post',
@@ -12,10 +15,18 @@ export default function MainLayout({ children, title }) {
   return (
     <>
       <head>
-        <title>{title} | Avito на минималках</title>
-        <meta charSet="utf-8" />
+        <title>{layoutTitle} | Avito на минималках</title>
       </head>
       <nav>
+        <div
+          style={{
+            border: 'solid white 1px',
+            padding: '3px',
+            borderRadius: '10px',
+          }}
+        >
+          {name}
+        </div>
         <Link href={'/'}>
           <a>Домашняя страница</a>
         </Link>

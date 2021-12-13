@@ -38,39 +38,41 @@ export default function CreateProduct({ cookies }) {
     }
   }
   return (
-    <MainLayout title={'Create product'}>
-      <h1>Страница создания услуги</h1>
-      <Link href={'/'}>
-        <a>Перейти к домашней странице</a>
-      </Link>
+    <MainLayout title={'Create product'} name={cookies.user_name.split(' ')[0]}>
+      <div className="container">
+        <h1>Страница создания услуги</h1>
+        <Link href={'/'}>
+          <a>Перейти к домашней странице</a>
+        </Link>
 
-      <form onSubmit={createProduct}>
-        <label htmlFor="product_name">Краткое наименование услуги</label>
-        <input
-          name="product_name"
-          type="text"
-          autoComplete="product"
-          required
-          pattern="[^'&quot;]+$"
-          title="Кавычки вида ' и &quot; нельзя вводить"
-        />
-        <label htmlFor="product_desc">Описание</label>
-        <input
-          name="product_desc"
-          type="text"
-          pattern="[^'&quot;]+$"
-          title="Кавычки вида ' и &quot; нельзя вводить"
-        />
-        <label htmlFor="product_cost">Цена услуги</label>
-        <input
-          name="product_cost"
-          type="text"
-          required
-          pattern="[^'&quot;]+$"
-          title="Кавычки вида ' и &quot; нельзя вводить"
-        />
-        <button type="submit">Создать</button>
-      </form>
+        <form onSubmit={createProduct}>
+          <label htmlFor="product_name">Краткое наименование услуги</label>
+          <input
+            name="product_name"
+            type="text"
+            autoComplete="product"
+            required
+            pattern="[^'&quot;]+$"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <label htmlFor="product_desc">Описание</label>
+          <input
+            name="product_desc"
+            type="text"
+            pattern="[^'&quot;]+$"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <label htmlFor="product_cost">Цена услуги</label>
+          <input
+            name="product_cost"
+            type="text"
+            required
+            pattern="[^'&quot;]+$"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <button type="submit">Создать</button>
+        </form>
+      </div>
     </MainLayout>
   );
 }

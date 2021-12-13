@@ -48,18 +48,20 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
     }
   }
   return (
-    <MainLayout title={'Product'}>
-      <h1>{dataProducts.product_name}</h1>
-      <Link href={'/'}>
-        <a>Перейти к домашней странице</a>
-      </Link>
-      <p>Владелец услуги: {dataUsers.user_name}</p>
-      <button
-        disabled={!dataProducts.product_availability}
-        onClick={UseProduct}
-      >
-        Воспользоваться услугой
-      </button>
+    <MainLayout title={'Product'} name={cookies.user_name.split(' ')[0]}>
+      <div className="container">
+        <h1>{dataProducts.product_name}</h1>
+        <Link href={'/'}>
+          <a>Перейти к домашней странице</a>
+        </Link>
+        <p>Предоставляет услугу: {dataUsers.user_name}</p>
+        <button
+          disabled={!dataProducts.product_availability}
+          onClick={UseProduct}
+        >
+          Воспользоваться услугой
+        </button>
+      </div>
     </MainLayout>
   );
 }

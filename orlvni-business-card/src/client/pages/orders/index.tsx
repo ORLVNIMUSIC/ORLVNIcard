@@ -1,32 +1,31 @@
 import Link from 'next/dist/client/link';
 import MainLayout from '../../layouts/main.layout';
 
-export default function Orders({ dataUsers, dataProducts }) {
+export default function Orders({ dataUsers, dataProducts, cookies }) {
   return (
-    <MainLayout title={'My orders'}>
-      <h1>Заказы, которые вы сделали</h1>
-      <Link href={'/'}>
-        <a>Перейти к домашней странице</a>
-      </Link>
-      <br />
-      <ul>
-        {dataProducts.map((item) => (
-          <li key={item.product_id}>
-            <h3>{item.product_name}</h3>
-            <h4>
-              Владелец услуги:{' '}
-              <strong>
-                {dataUsers.find((el) => el.user_id === item.user_id).user_name}
-              </strong>
-            </h4>
-            <Link href={`/products/${item.product_id}`}>
-              <a>Перейти на страницу продукта</a>
-            </Link>
-            <p>{item.product_desc}</p>
-            <p>{item.product_cost} р.</p>
-          </li>
-        ))}
-      </ul>
+    <MainLayout title={'My orders'} name={cookies.user_name.split(' ')[0]}>
+      <div className="container header">
+        <h1>Заказы, которые вы сделали</h1>
+        <Link href={'/'}>
+          <a>Перейти к домашней странице</a>
+        </Link>
+      </div>
+      {dataProducts.map((item) => (
+        <div className="container">
+          <h3>{item.product_name}</h3>
+          <h4>
+            Владелец услуги:{' '}
+            <strong>
+              {dataUsers.find((el) => el.user_id === item.user_id).user_name}
+            </strong>
+          </h4>
+          <Link href={`/products/${item.product_id}`}>
+            <a>Перейти на страницу продукта</a>
+          </Link>
+          <p>{item.product_desc}</p>
+          <p>{item.product_cost} р.</p>
+        </div>
+      ))}
     </MainLayout>
   );
 }
@@ -70,6 +69,6 @@ export async function getServerSideProps(ctx) {
   );
 
   return {
-    props: { dataOrders, dataUsers, dataProducts },
+    props: { dataOrders, dataUsers, dataProducts, cookies },
   };
 }

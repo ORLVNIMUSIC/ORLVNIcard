@@ -1,10 +1,10 @@
 import Link from 'next/dist/client/link';
 import MainLayout from '../../layouts/main.layout';
 
-export default function Products({ dataProducts, dataUsers }) {
+export default function Products({ dataProducts, dataUsers, cookies }) {
   return (
-    <MainLayout title={'Products'}>
-      <div className="container">
+    <MainLayout title={'Products'} name={cookies.user_name.split(' ')[0]}>
+      <div className="container header">
         <h1>Посмотри какие услуги я зафетчил из своей бд</h1>
         <Link href={'/'}>
           <a>Перейти к домашней странице</a>
@@ -18,23 +18,25 @@ export default function Products({ dataProducts, dataUsers }) {
         <div className="container">
           <h3>{item.product_name}</h3>
           <h4>
-            Владелец услуги:{' '}
+            Предоставляет услугу:{' '}
             <strong>
               {dataUsers.find((el) => el.user_id === item.user_id).user_name}
             </strong>
           </h4>
           <Link href={`/products/${item.product_id}`}>
-            <a>Перейти на страницу продукта</a>
+            <a>Перейти на страницу услуги</a>
           </Link>
           <p>{item.product_desc}</p>
           <p>{item.product_cost} р.</p>
-          <p>{item.product_availability ? 'Доступен' : 'Недоступен'}</p>
+          <p>{item.product_availability ? 'Доступна' : 'Недоступна'}</p>
         </div>
       ))}
     </MainLayout>
   );
 }
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
+  const { req } = ctx;
+  const { cookies } = req;
   const resProducts = await fetch(`http://localhost:3000/server/products`);
   const dataProducts = await resProducts.json();
   if (!dataProducts) {
@@ -53,6 +55,6 @@ export async function getServerSideProps() {
   }
 
   return {
-    props: { dataProducts, dataUsers },
+    props: { dataProducts, dataUsers, cookies },
   };
 }

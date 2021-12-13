@@ -1,5 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
+import SigninLayout from '../layouts/signin.layout';
 
 export default function Login() {
   const router = useRouter();
@@ -30,45 +31,47 @@ export default function Login() {
     }
   }
   return (
-    <>
-      <h1>Укажите данные для регистрации</h1>
-      <form onSubmit={createUser}>
-        <label htmlFor="user_email">Электронная почта</label>
-        <input
-          name="user_email"
-          type="text"
-          required
-          pattern="[^'&quot;]+$"
-          title="Кавычки вида ' и &quot; нельзя вводить"
-        />
-        <label htmlFor="user_password">Пароль</label>
-        <input
-          name="user_password"
-          type="text"
-          required
-          pattern="[^'&quot;]+$"
-          title="Кавычки вида ' и &quot; нельзя вводить"
-        />
-        <label htmlFor="user_name">Имя</label>
-        <input
-          name="user_name"
-          type="text"
-          autoComplete="name"
-          required
-          pattern="[^'&quot;]+$"
-          title="Кавычки вида ' и &quot; нельзя вводить"
-        />
-        <label htmlFor="user_bio">Биография</label>
-        <input
-          name="user_bio"
-          type="text"
-          pattern="[^'&quot;]+$"
-          title="Кавычки вида ' и &quot; нельзя вводить"
-        />
-        <button type="submit">Регистрация</button>
-      </form>
-      <h2>Уже зарегистрированны?</h2>
-      <Link href={'/login'}>Войти</Link>
-    </>
+    <SigninLayout title={'Sign up'}>
+      <div className="container">
+        <h1>Укажите данные для регистрации</h1>
+        <form onSubmit={createUser}>
+          <label htmlFor="user_email">Электронная почта</label>
+          <input
+            name="user_email"
+            type="text"
+            required
+            pattern="[^'&quot;]+$"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <label htmlFor="user_password">Пароль</label>
+          <input
+            name="user_password"
+            type="text"
+            required
+            pattern="[^'&quot;]+$"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <label htmlFor="user_name">Имя</label>
+          <input
+            name="user_name"
+            type="text"
+            autoComplete="name"
+            required
+            pattern="[^'&quot;]+$"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <label htmlFor="user_bio">Биография</label>
+          <input
+            name="user_bio"
+            type="text"
+            pattern="[^'&quot;]+$"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <button type="submit">Регистрация</button>
+        </form>
+        <h2>Уже зарегистрированны?</h2>
+        <Link href={'/login'}>Войти</Link>
+      </div>
+    </SigninLayout>
   );
 }

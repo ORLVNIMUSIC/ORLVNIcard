@@ -1,11 +1,11 @@
 import Link from 'next/dist/client/link';
 import MainLayout from '../../layouts/main.layout';
 
-export default function Users({ dataUsers }) {
+export default function Users({ dataUsers, cookies }) {
   return (
-    <MainLayout title={'Users'}>
-      <div className="container">
-        <h1>Посмотри какие услуги я зафетчил из своей бд</h1>
+    <MainLayout title={'Users'} name={cookies.user_name.split(' ')[0]}>
+      <div className="container header">
+        <h1>Зарегистрированные пользователи</h1>
         <Link href={'/'}>
           <a>Перейти к домашней странице</a>
         </Link>
@@ -20,7 +20,9 @@ export default function Users({ dataUsers }) {
     </MainLayout>
   );
 }
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
+  const { req } = ctx;
+  const { cookies } = req;
   const resUsers = await fetch(`http://localhost:3000/server/users`);
   const dataUsers = await resUsers.json();
 
@@ -31,6 +33,6 @@ export async function getServerSideProps() {
   }
 
   return {
-    props: { dataUsers },
+    props: { dataUsers, cookies },
   };
 }

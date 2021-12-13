@@ -1,5 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
+import SigninLayout from '../layouts/signin.layout';
 
 export default function Login() {
   const router = useRouter();
@@ -27,29 +28,31 @@ export default function Login() {
     }
   }
   return (
-    <>
-      <h1>Войдите в систему</h1>
-      <form onSubmit={doLogIn}>
-        <label htmlFor="user_email">Электронная почта</label>
-        <input
-          name="user_email"
-          type="text"
-          required
-          pattern="[^'&quot;]+$"
-          title="Кавычки вида ' и &quot; нельзя вводить"
-        />
-        <label htmlFor="user_password">Пароль</label>
-        <input
-          name="user_password"
-          type="text"
-          required
-          pattern="[^'&quot;]+$"
-          title="Кавычки вида ' и &quot; нельзя вводить"
-        />
-        <button type="submit">Войти</button>
-      </form>
-      <h2>Не зарегистрированны в системе?</h2>
-      <Link href={'/signup'}>Регистрация</Link>
-    </>
+    <SigninLayout title={'Login'}>
+      <div className="container">
+        <h1>Войдите в систему</h1>
+        <form onSubmit={doLogIn}>
+          <label htmlFor="user_email">Электронная почта</label>
+          <input
+            name="user_email"
+            type="text"
+            required
+            pattern="[^'&quot;]+$"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <label htmlFor="user_password">Пароль</label>
+          <input
+            name="user_password"
+            type="text"
+            required
+            pattern="[^'&quot;]+$"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <button type="submit">Войти</button>
+        </form>
+        <h2>Не зарегистрированны в системе?</h2>
+        <Link href={'/signup'}>Регистрация</Link>
+      </div>
+    </SigninLayout>
   );
 }

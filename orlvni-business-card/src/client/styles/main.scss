@@ -1,24 +1,29 @@
+$navHeight: 40px;
 body {
   margin: 0;
   padding: 0;
-  padding-top: 40px;
+  padding-top: $navHeight;
   font-family: 'Noto Sans', sans-serif;
-  display: flex;
-  justify-content: center;
 }
 
 .container {
   display: block;
-  width: 50%;
+  background-color: #fff;
+  width: 70%;
   margin: 3px auto;
   border: 3px solid darkblue;
   padding: 10px;
   border-radius: 15px;
 }
+.header {
+  border: 0;
+}
+
 $lrspace: 5%;
 nav {
+  color: #fff;
   position: fixed;
-  height: 40px;
+  height: $navHeight;
   left: $lrspace;
   right: $lrspace;
   top: 0;
@@ -33,6 +38,13 @@ nav {
     text-decoration: none;
     &:hover {
       text-decoration: underline;
+    }
+  }
+  button {
+    border-color: rgb(121, 121, 121);
+    border-radius: 5px;
+    &:hover {
+      background-color: rgb(219, 219, 219);
     }
   }
 }
