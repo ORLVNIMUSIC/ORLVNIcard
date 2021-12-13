@@ -16,15 +16,14 @@ import { ORDERS } from './orders/order.entity';
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'mssql',
-        host: 'localhost',
+        host: process.env.DB_HOST,
         port: 1433,
-        username: 'user',
-        password: 'userpassword',
+        username: process.env.DB_USER,
+        password: process.env.DB_PASS,
         options: {
           isolation: 'SNAPSHOT',
         },
-        migrationsTableName: 'PRODUCTS',
-        database: 'WEB_STORE_DB',
+        database: process.env.DB_TABLE,
         entities: [PRODUCTS, USERS, ORDERS],
         extra: { trustServerCertificate: true },
       }),

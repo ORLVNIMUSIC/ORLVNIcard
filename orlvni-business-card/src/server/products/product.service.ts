@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Connection } from 'typeorm';
 import { CreateProductDTO } from './DTO/create.product.dto';
 import { PRODUCTS } from './product.entity';
