@@ -7,7 +7,7 @@ export default function Login() {
   async function doLogIn(event) {
     event.preventDefault();
 
-    const response = await fetch(`${process.env.ORIGIN}/server/login`, {
+    const response = await fetch(`/server/login`, {
       method: 'post',
       body: JSON.stringify({
         user_password: event.target.user_password.value,

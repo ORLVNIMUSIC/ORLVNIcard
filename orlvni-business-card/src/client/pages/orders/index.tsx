@@ -33,9 +33,7 @@ export async function getServerSideProps(ctx) {
   const { req } = ctx;
 
   const { cookies } = req;
-  const responseOrders = await fetch(
-    `${process.env.ORIGIN}/server/orders/${cookies.user_id}`,
-  );
+  const responseOrders = await fetch(`/server/orders/${cookies.user_id}`);
   const dataOrders = await responseOrders.json();
   if (!dataOrders) {
     return {
@@ -43,7 +41,7 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const resUsers = await fetch(`${process.env.ORIGIN}/server/users`);
+  const resUsers = await fetch(`/server/users`);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {
@@ -54,9 +52,7 @@ export async function getServerSideProps(ctx) {
 
   const dataProducts = await Promise.all(
     dataOrders.map(async (el) => {
-      const responseProducts = await fetch(
-        `${process.env.ORIGIN}/server/products/${el.product_id}`,
-      );
+      const responseProducts = await fetch(`/server/products/${el.product_id}`);
 
       const oneProduct = await responseProducts.json();
       if (!oneProduct) {

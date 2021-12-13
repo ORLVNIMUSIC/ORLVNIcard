@@ -16,7 +16,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect(`${process.env.ORIGIN}/login`);
+      res.redirect(`/login`);
     }
   }
 
@@ -25,7 +25,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect(`${process.env.ORIGIN}/login`);
+      res.redirect(`/login`);
     }
   }
 
@@ -34,7 +34,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect(`${process.env.ORIGIN}/login`);
+      res.redirect(`/login`);
     }
   }
 
@@ -43,7 +43,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect(`${process.env.ORIGIN}/login`);
+      res.redirect(`/login`);
     }
   }
 
@@ -52,7 +52,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect(`${process.env.ORIGIN}/login`);
+      res.redirect(`/login`);
     }
   }
 
@@ -61,7 +61,7 @@ export class ViewController {
     if (await this.authService.checkJwt(req.cookies['jwt'])) {
       await this.viewService.handler(req, res);
     } else {
-      res.redirect(`${process.env.ORIGIN}/login`);
+      res.redirect(`/login`);
     }
   }
 

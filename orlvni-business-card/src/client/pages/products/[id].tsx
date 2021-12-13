@@ -5,27 +5,24 @@ import MainLayout from '../../layouts/main.layout';
 export default function Product({ dataProducts, dataUsers, cookies }) {
   const router = useRouter();
   async function UseProduct() {
-    const responseCreateOrder = await fetch(
-      `${process.env.ORIGIN}/server/orders/`,
-      {
-        method: 'post',
-        body: JSON.stringify({
-          order_id: 'default',
-          product_id: dataProducts.product_id,
-          user_id: cookies.user_id,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const responseCreateOrder = await fetch(`/server/orders/`, {
+      method: 'post',
+      body: JSON.stringify({
+        order_id: 'default',
+        product_id: dataProducts.product_id,
+        user_id: cookies.user_id,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     const createOrderData = await responseCreateOrder.json();
 
     switch (createOrderData.message) {
       case 'success':
         const responseUpdateProduct = await fetch(
-          `${process.env.ORIGIN}/server/products/${dataProducts.product_id}`,
+          `/server/products/${dataProducts.product_id}`,
           {
             method: 'put',
           },
@@ -69,9 +66,7 @@ export async function getServerSideProps(ctx) {
   const { req } = ctx;
 
   const { cookies } = req;
-  const resProducts = await fetch(
-    `${process.env.ORIGIN}/server/products/${id}`,
-  );
+  const resProducts = await fetch(`/server/products/${id}`);
 
   const dataProducts = await resProducts.json();
 
@@ -81,9 +76,7 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const resUsers = await fetch(
-    `${process.env.ORIGIN}/server/users/${dataProducts.user_id}`,
-  );
+  const resUsers = await fetch(`/server/users/${dataProducts.user_id}`);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {

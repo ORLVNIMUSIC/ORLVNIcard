@@ -6,7 +6,7 @@ export default function Login() {
   const router = useRouter();
   async function createUser(event) {
     event.preventDefault();
-    const response = await fetch(`${process.env.ORIGIN}/server/users`, {
+    const response = await fetch(`/server/users`, {
       method: 'post',
       body: JSON.stringify({
         user_id: 'default',

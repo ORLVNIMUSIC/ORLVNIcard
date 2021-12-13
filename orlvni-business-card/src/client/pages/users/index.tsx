@@ -23,7 +23,7 @@ export default function Users({ dataUsers, cookies }) {
 export async function getServerSideProps(ctx) {
   const { req } = ctx;
   const { cookies } = req;
-  const resUsers = await fetch(`${process.env.ORIGIN}/server/users`);
+  const resUsers = await fetch(`/server/users`);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {
