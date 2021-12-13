@@ -2,12 +2,12 @@ import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import SigninLayout from '../layouts/signin.layout';
 
-export default function Login() {
+export default function Login({ host }) {
   const router = useRouter();
   async function doLogIn(event) {
     event.preventDefault();
 
-    const response = await fetch(`/server/login`, {
+    const response = await fetch(`${host}/server/login`, {
       method: 'post',
       body: JSON.stringify({
         user_password: event.target.user_password.value,
@@ -55,4 +55,14 @@ export default function Login() {
       </div>
     </SigninLayout>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  const { req } = ctx;
+
+  const host = 'https://' + req.rawHeaders[1];
+
+  return {
+    props: { host },
+  };
 }

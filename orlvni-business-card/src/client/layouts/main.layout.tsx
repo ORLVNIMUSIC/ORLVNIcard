@@ -3,12 +3,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function MainLayout({ children, title, name }) {
+export default function MainLayout({ children, title, name, host }) {
   const router = useRouter();
   const [layoutTitle, setTitle] = useState();
   useEffect(() => setTitle(title));
   async function LogOut() {
-    await fetch(`/server/logout`, {
+    await fetch(`${host}/server/logout`, {
       method: 'post',
     });
     router.reload();

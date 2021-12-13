@@ -1,9 +1,13 @@
 import Link from 'next/dist/client/link';
 import MainLayout from '../../layouts/main.layout';
 
-export default function Users({ dataUsers, cookies }) {
+export default function Users({ dataUsers, cookies, host }) {
   return (
-    <MainLayout title={'Users'} name={cookies.user_name.split(' ')[0]}>
+    <MainLayout
+      title={'Users'}
+      name={cookies.user_name.split(' ')[0]}
+      host={host}
+    >
       <div className="container header">
         <h1>Зарегистрированные пользователи</h1>
         <Link href={'/'}>
@@ -23,7 +27,8 @@ export default function Users({ dataUsers, cookies }) {
 export async function getServerSideProps(ctx) {
   const { req } = ctx;
   const { cookies } = req;
-  const resUsers = await fetch(`/server/users`);
+  const host = 'https://' + req.rawHeaders[1];
+  const resUsers = await fetch(`${host}/server/users`);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {
@@ -33,6 +38,6 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
-    props: { dataUsers, cookies },
+    props: { dataUsers, cookies, host },
   };
 }

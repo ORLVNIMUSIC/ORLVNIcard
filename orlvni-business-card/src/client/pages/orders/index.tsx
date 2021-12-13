@@ -1,9 +1,13 @@
 import Link from 'next/dist/client/link';
 import MainLayout from '../../layouts/main.layout';
 
-export default function Orders({ dataUsers, dataProducts, cookies }) {
+export default function Orders({ dataUsers, dataProducts, cookies, host }) {
   return (
-    <MainLayout title={'My orders'} name={cookies.user_name.split(' ')[0]}>
+    <MainLayout
+      title={'My orders'}
+      name={cookies.user_name.split(' ')[0]}
+      host={host}
+    >
       <div className="container header">
         <h1>Заказы, которые вы сделали</h1>
         <Link href={'/'}>
@@ -33,7 +37,10 @@ export async function getServerSideProps(ctx) {
   const { req } = ctx;
 
   const { cookies } = req;
-  const responseOrders = await fetch(`/server/orders/${cookies.user_id}`);
+  const host = 'https://' + req.rawHeaders[1];
+  const responseOrders = await fetch(
+    `${host}/server/orders/${cookies.user_id}`,
+  );
   const dataOrders = await responseOrders.json();
   if (!dataOrders) {
     return {
@@ -41,7 +48,7 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const resUsers = await fetch(`/server/users`);
+  const resUsers = await fetch(`${host}/server/users`);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {
@@ -52,7 +59,9 @@ export async function getServerSideProps(ctx) {
 
   const dataProducts = await Promise.all(
     dataOrders.map(async (el) => {
-      const responseProducts = await fetch(`/server/products/${el.product_id}`);
+      const responseProducts = await fetch(
+        `${host}/server/products/${el.product_id}`,
+      );
 
       const oneProduct = await responseProducts.json();
       if (!oneProduct) {
@@ -65,6 +74,6 @@ export async function getServerSideProps(ctx) {
   );
 
   return {
-    props: { dataOrders, dataUsers, dataProducts, cookies },
+    props: { dataOrders, dataUsers, dataProducts, cookies, host },
   };
 }

@@ -2,10 +2,10 @@ import Link from 'next/dist/client/link';
 import { useRouter } from 'next/dist/client/router';
 import MainLayout from '../../layouts/main.layout';
 
-export default function Product({ dataProducts, dataUsers, cookies }) {
+export default function Product({ dataProducts, dataUsers, cookies, host }) {
   const router = useRouter();
   async function UseProduct() {
-    const responseCreateOrder = await fetch(`/server/orders/`, {
+    const responseCreateOrder = await fetch(`${host}/server/orders/`, {
       method: 'post',
       body: JSON.stringify({
         order_id: 'default',
@@ -22,7 +22,7 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
     switch (createOrderData.message) {
       case 'success':
         const responseUpdateProduct = await fetch(
-          `/server/products/${dataProducts.product_id}`,
+          `${host}/server/products/${dataProducts.product_id}`,
           {
             method: 'put',
           },
@@ -44,7 +44,11 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
     }
   }
   return (
-    <MainLayout title={'Product'} name={cookies.user_name.split(' ')[0]}>
+    <MainLayout
+      title={'Product'}
+      name={cookies.user_name.split(' ')[0]}
+      host={host}
+    >
       <div className="container">
         <h1>{dataProducts.product_name}</h1>
         <Link href={'/'}>
@@ -64,9 +68,10 @@ export default function Product({ dataProducts, dataUsers, cookies }) {
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   const { req } = ctx;
+  const host = 'https://' + req.rawHeaders[1];
 
   const { cookies } = req;
-  const resProducts = await fetch(`/server/products/${id}`);
+  const resProducts = await fetch(`${host}/server/products/${id}`);
 
   const dataProducts = await resProducts.json();
 
@@ -76,7 +81,7 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const resUsers = await fetch(`/server/users/${dataProducts.user_id}`);
+  const resUsers = await fetch(`${host}/server/users/${dataProducts.user_id}`);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {
@@ -86,6 +91,6 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
-    props: { dataProducts, dataUsers, cookies },
+    props: { dataProducts, dataUsers, cookies, host },
   };
 }

@@ -1,9 +1,13 @@
 import Link from 'next/dist/client/link';
 import MainLayout from '../../layouts/main.layout';
 
-export default function Products({ dataProducts, dataUsers, cookies }) {
+export default function Products({ dataProducts, dataUsers, cookies, host }) {
   return (
-    <MainLayout title={'Products'} name={cookies.user_name.split(' ')[0]}>
+    <MainLayout
+      title={'Products'}
+      name={cookies.user_name.split(' ')[0]}
+      host={host}
+    >
       <div className="container header">
         <h1>Список всех услуг</h1>
         <Link href={'/'}>
@@ -37,7 +41,8 @@ export default function Products({ dataProducts, dataUsers, cookies }) {
 export async function getServerSideProps(ctx) {
   const { req } = ctx;
   const { cookies } = req;
-  const resProducts = await fetch(`/server/products`);
+  const host = 'https://' + req.rawHeaders[1];
+  const resProducts = await fetch(`${host}/server/products`);
   const dataProducts = await resProducts.json();
   if (!dataProducts) {
     return {
@@ -45,7 +50,7 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const resUsers = await fetch(`/server/users`);
+  const resUsers = await fetch(`${host}/server/users`);
   const dataUsers = await resUsers.json();
 
   if (!dataUsers) {
@@ -55,6 +60,6 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
-    props: { dataProducts, dataUsers, cookies },
+    props: { dataProducts, dataUsers, cookies, host },
   };
 }

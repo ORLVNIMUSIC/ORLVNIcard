@@ -3,17 +3,15 @@ import Link from 'next/dist/client/link';
 import { useRouter } from 'next/dist/client/router';
 import MainLayout from '../../../layouts/main.layout';
 
-export default function CreateProduct({ cookies }) {
+export default function CreateProduct({ cookies, host }) {
   const router = useRouter();
   async function createProduct(event) {
     event.preventDefault();
 
-    const userResponse = await fetch(
-      `/server/users/${cookies.user_id}`,
-    );
+    const userResponse = await fetch(`${host}/server/users/${cookies.user_id}`);
     const userData = await userResponse.json();
 
-    const response = await fetch(`/server/products`, {
+    const response = await fetch(`${host}/server/products`, {
       method: 'post',
       body: JSON.stringify({
         product_id: 'default',
@@ -37,7 +35,11 @@ export default function CreateProduct({ cookies }) {
     }
   }
   return (
-    <MainLayout title={'Create product'} name={cookies.user_name.split(' ')[0]}>
+    <MainLayout
+      title={'Create product'}
+      name={cookies.user_name.split(' ')[0]}
+      host={host}
+    >
       <div className="container">
         <h1>Страница создания услуги</h1>
         <Link href={'/'}>
@@ -76,10 +78,16 @@ export default function CreateProduct({ cookies }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps = async (ctx) => {
   const { req } = ctx;
 
   const { cookies } = req;
+  const host = 'https://' + req.rawHeaders[1];
 
-  return { props: { cookies } };
+  return {
+    props: {
+      cookies,
+      host,
+    },
+  };
 };
