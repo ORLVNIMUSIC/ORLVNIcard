@@ -4,7 +4,9 @@ import MainLayout from '../../layouts/main.layout';
 
 export default function Product({ dataProducts, dataUsers, cookies, host }) {
   const router = useRouter();
-  async function UseProduct() {
+  async function UseProduct(event) {
+    event.preventDefault();
+    event.target.disabled = true;
     const responseCreateOrder = await fetch(`${host}/server/orders/`, {
       method: 'post',
       body: JSON.stringify({
@@ -42,6 +44,7 @@ export default function Product({ dataProducts, dataUsers, cookies, host }) {
         router.reload();
         break;
     }
+    event.target.disabled = false;
   }
   return (
     <MainLayout
@@ -55,6 +58,7 @@ export default function Product({ dataProducts, dataUsers, cookies, host }) {
           <a>Перейти к домашней странице</a>
         </Link>
         <p>Предоставляет услугу: {dataUsers.user_name}</p>
+        <p>Описание услуги: {dataProducts.product_desc}</p>
         <button
           disabled={!dataProducts.product_availability}
           onClick={UseProduct}
@@ -68,7 +72,7 @@ export default function Product({ dataProducts, dataUsers, cookies, host }) {
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   const { req } = ctx;
-  const host = 'https://' + req.rawHeaders[1];
+  const host = `${process.env.PROTOCOL}://${req.rawHeaders[1]}`;
 
   const { cookies } = req;
   const resProducts = await fetch(`${host}/server/products/${id}`);

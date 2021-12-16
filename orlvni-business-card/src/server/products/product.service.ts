@@ -20,6 +20,21 @@ export class ProductService {
     }
   }
 
+  async findAllAvailable(): Promise<PRODUCTS[]> {
+    const queryRunner = this.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      return await queryRunner.manager.find(PRODUCTS, {
+        where: { product_availability: 1 },
+      });
+    } catch (err) {
+      return err;
+    } finally {
+      await queryRunner.rollbackTransaction();
+    }
+  }
+
   async findOne(id: string): Promise<PRODUCTS> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();

@@ -67,12 +67,20 @@ export class ViewController {
 
   @Get('login')
   public async showLogin(@Req() req: Request, @Res() res: Response) {
-    await this.viewService.handler(req, res);
+    if (!(await this.authService.checkJwt(req.cookies['jwt']))) {
+      await this.viewService.handler(req, res);
+    } else {
+      res.redirect('/');
+    }
   }
 
   @Get('signup')
   public async showSignup(@Req() req: Request, @Res() res: Response) {
-    await this.viewService.handler(req, res);
+    if (!(await this.authService.checkJwt(req.cookies['jwt']))) {
+      await this.viewService.handler(req, res);
+    } else {
+      res.redirect('/');
+    }
   }
 
   @Get('_next*')

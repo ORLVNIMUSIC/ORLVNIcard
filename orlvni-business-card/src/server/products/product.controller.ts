@@ -15,6 +15,11 @@ import { ProductService } from './product.service';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  @Get('/available')
+  async getAllAvailable() {
+    return await this.productService.findAllAvailable();
+  }
+
   @Get()
   async getAll() {
     return await this.productService.findAll();

@@ -1,18 +1,41 @@
-import { useRouter } from 'next/dist/client/router';
+import { Router, useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import React from 'react';
 import { useEffect, useState } from 'react';
 
 export default function MainLayout({ children, title, name, host }) {
   const router = useRouter();
   const [layoutTitle, setTitle] = useState();
   useEffect(() => setTitle(title));
-  async function LogOut() {
+  async function LogOut(event) {
+    event.target.disabled = true;
     await fetch(`${host}/server/logout`, {
       method: 'post',
     });
     router.reload();
+    event.target.disabled = false;
   }
+
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    const start = () => {
+      console.log('start');
+      setLoading(true);
+    };
+    const end = () => {
+      console.log('findished');
+      setLoading(false);
+    };
+    Router.events.on('routeChangeStart', start);
+    Router.events.on('routeChangeComplete', end);
+    Router.events.on('routeChangeError', end);
+    return () => {
+      Router.events.off('routeChangeStart', start);
+      Router.events.off('routeChangeComplete', end);
+      Router.events.off('routeChangeError', end);
+    };
+  }, []);
   return (
     <>
       <Head>
@@ -43,7 +66,7 @@ export default function MainLayout({ children, title, name, host }) {
 
         <button onClick={LogOut}>Выйти из аккаунта</button>
       </nav>
-      <main>{children}</main>
+      <main>{loading ? <div className="donut"></div> : children}</main>
     </>
   );
 }

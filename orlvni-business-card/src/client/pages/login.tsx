@@ -6,6 +6,7 @@ export default function Login({ host }) {
   const router = useRouter();
   async function doLogIn(event) {
     event.preventDefault();
+    event.target.submit.disabled = true;
 
     const response = await fetch(`${host}/server/login`, {
       method: 'post',
@@ -26,6 +27,7 @@ export default function Login({ host }) {
         alert('Ввели неверные данные');
         break;
     }
+    event.target.submit.disabled = false;
   }
   return (
     <SigninLayout title={'Login'}>
@@ -48,7 +50,9 @@ export default function Login({ host }) {
             pattern="[^'&quot;]+$"
             title="Кавычки вида ' и &quot; нельзя вводить"
           />
-          <button type="submit">Войти</button>
+          <button type="submit" name="submit">
+            Войти
+          </button>
         </form>
         <h2>Не зарегистрированны в системе?</h2>
         <Link href={'/signup'}>Регистрация</Link>
@@ -60,7 +64,7 @@ export default function Login({ host }) {
 export async function getServerSideProps(ctx) {
   const { req } = ctx;
 
-  const host = 'https://' + req.rawHeaders[1];
+  const host = `${process.env.PROTOCOL}://${req.rawHeaders[1]}`;
 
   return {
     props: { host },

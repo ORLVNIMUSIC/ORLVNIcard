@@ -4,33 +4,43 @@ import SigninLayout from '../layouts/signin.layout';
 
 export default function Login({ host }) {
   const router = useRouter();
+
   async function createUser(event) {
     event.preventDefault();
-    const response = await fetch(`${host}/server/users`, {
-      method: 'post',
-      body: JSON.stringify({
-        user_id: 'default',
-        user_password: event.target.user_password.value,
-        user_email: event.target.user_email.value,
-        user_name: event.target.user_name.value,
-        user_bio: event.target.user_bio.value,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await response.json();
+    event.target.submit.disabled = true;
+    const regex = new RegExp('[\'"]');
+    if (!regex.exec(event.target.user_bio.value)) {
+      const response = await fetch(`${host}/server/users`, {
+        method: 'post',
+        body: JSON.stringify({
+          user_id: 'default',
+          user_password: event.target.user_password.value,
+          user_email: event.target.user_email.value,
+          user_name: event.target.user_name.value,
+          user_bio: event.target.user_bio.value,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
 
-    switch (data.message) {
-      case 'success':
-        router.push('/login');
-        break;
-      case 'denied':
-        alert('Что-то пошло не так, попробуйте еще раз');
-        break;
-      case 'email is used':
-        alert('Эта почта уже занята');
-        break;
+      switch (data.message) {
+        case 'success':
+          alert('Вы удачно зарегистрировались');
+          router.push('/login');
+          break;
+        case 'denied':
+          alert('Что-то пошло не так, попробуйте еще раз');
+          break;
+        case 'email is used':
+          alert('Эта почта уже занята');
+          break;
+      }
+      event.target.submit.disabled = false;
+    } else {
+      event.target.submit.disabled = false;
+      alert('Кавычки вида \' и " нельзя вводить');
     }
   }
   return (
@@ -46,6 +56,7 @@ export default function Login({ host }) {
             pattern="[^'&quot;]+$"
             title="Кавычки вида ' и &quot; нельзя вводить"
           />
+          <br />
           <label htmlFor="user_password">Пароль</label>
           <input
             name="user_password"
@@ -54,6 +65,7 @@ export default function Login({ host }) {
             pattern="[^'&quot;]+$"
             title="Кавычки вида ' и &quot; нельзя вводить"
           />
+          <br />
           <label htmlFor="user_name">Имя</label>
           <input
             name="user_name"
@@ -63,14 +75,17 @@ export default function Login({ host }) {
             pattern="[^'&quot;]+$"
             title="Кавычки вида ' и &quot; нельзя вводить"
           />
+          <br />
           <label htmlFor="user_bio">Биография</label>
-          <input
+          <br />
+          <textarea
             name="user_bio"
-            type="text"
-            pattern="[^'&quot;]+$"
             title="Кавычки вида ' и &quot; нельзя вводить"
           />
-          <button type="submit">Регистрация</button>
+          <br />
+          <button type="submit" name="submit">
+            Регистрация
+          </button>
         </form>
         <h2>Уже зарегистрированны?</h2>
         <Link href={'/login'}>Войти</Link>
@@ -81,7 +96,7 @@ export default function Login({ host }) {
 
 export async function getServerSideProps(ctx) {
   const { req } = ctx;
-  const host = 'https://' + req.rawHeaders[1];
+  const host = `${process.env.PROTOCOL}://${req.rawHeaders[1]}`;
 
   return {
     props: { host },

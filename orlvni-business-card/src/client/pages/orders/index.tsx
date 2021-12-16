@@ -35,9 +35,9 @@ export default function Orders({ dataUsers, dataProducts, cookies, host }) {
 }
 export async function getServerSideProps(ctx) {
   const { req } = ctx;
-
   const { cookies } = req;
-  const host = 'https://' + req.rawHeaders[1];
+  const host = `${process.env.PROTOCOL}://${req.rawHeaders[1]}`;
+
   const responseOrders = await fetch(
     `${host}/server/orders/${cookies.user_id}`,
   );
