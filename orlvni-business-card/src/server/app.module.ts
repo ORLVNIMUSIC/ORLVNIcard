@@ -10,6 +10,8 @@ import { ViewModule } from './view/view.module';
 import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './orders/order.module';
 import { ORDERS } from './orders/order.entity';
+import { SuggestionModule } from './suggestions/suggestions.module';
+import { SUGGESTIONS } from './suggestions/suggestion.entity';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { ORDERS } from './orders/order.entity';
           isolation: 'SNAPSHOT',
         },
         database: process.env.DB_TABLE,
-        entities: [PRODUCTS, USERS, ORDERS],
+        entities: [PRODUCTS, USERS, ORDERS, SUGGESTIONS],
         extra: { trustServerCertificate: true },
       }),
     }),
@@ -33,6 +35,7 @@ import { ORDERS } from './orders/order.entity';
     ViewModule,
     AuthModule,
     OrderModule,
+    SuggestionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

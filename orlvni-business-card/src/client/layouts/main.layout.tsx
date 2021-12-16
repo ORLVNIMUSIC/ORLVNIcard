@@ -20,11 +20,9 @@ export default function MainLayout({ children, title, name, host }) {
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     const start = () => {
-      console.log('start');
       setLoading(true);
     };
     const end = () => {
-      console.log('findished');
       setLoading(false);
     };
     Router.events.on('routeChangeStart', start);
@@ -66,7 +64,7 @@ export default function MainLayout({ children, title, name, host }) {
 
         <button onClick={LogOut}>Выйти из аккаунта</button>
       </nav>
-      <main>{loading ? <div className="donut"></div> : children}</main>
+      <main>{loading ? <div className="donut" /> : children}</main>
     </>
   );
 }

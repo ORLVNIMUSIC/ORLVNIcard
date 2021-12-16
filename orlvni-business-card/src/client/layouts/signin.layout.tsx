@@ -33,7 +33,7 @@ export default function SigninLayout({ children, title }) {
       <main>
         <div className={styles.modal}>
           <div className={styles.modalContent}>
-            {loading ? <div className="donut"></div> : children}
+            {loading ? <div className="donut" /> : children}
           </div>
         </div>
       </main>

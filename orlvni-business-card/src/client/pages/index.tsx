@@ -2,6 +2,40 @@ import Link from 'next/link';
 import MainLayout from '../layouts/main.layout';
 
 export default function Index({ cookies, host }) {
+  async function sendSug(event) {
+    event.preventDefault();
+    event.target.submit.disabled = true;
+    const regex = new RegExp('[\'"]');
+    if (!regex.exec(event.target.sug_text.value)) {
+      const response = await fetch(`${host}/server/suggest`, {
+        method: 'post',
+        body: JSON.stringify({
+          sug_id: 'default',
+          user_id: cookies.user_id,
+          sug_text: event.target.sug_text.value,
+          sug_date: 'default',
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+
+      switch (data.message) {
+        case 'success':
+          alert('Спасибо за обратную связь');
+          break;
+        case 'denied':
+          alert('Что-то пошло не так, попробуйте еще раз');
+          break;
+      }
+      event.target.sug_text.value = '';
+      event.target.submit.disabled = false;
+    } else {
+      event.target.submit.disabled = false;
+      alert('Кавычки вида \' и " нельзя вводить');
+    }
+  }
   return (
     <MainLayout
       title={'Home'}
@@ -21,6 +55,21 @@ export default function Index({ cookies, host }) {
         <Link href={'/users'}>
           <a>Перейти к пользователям</a>
         </Link>
+      </div>
+
+      <div className="container header">
+        <form action="submit" onSubmit={sendSug}>
+          <label htmlFor="sug_text">Введите пожелания для проекта:</label>
+          <br />
+          <textarea
+            name="sug_text"
+            title="Кавычки вида ' и &quot; нельзя вводить"
+          />
+          <br />
+          <button type="submit" name="submit">
+            Отправить
+          </button>
+        </form>
       </div>
     </MainLayout>
   );
