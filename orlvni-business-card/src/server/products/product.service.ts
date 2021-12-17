@@ -80,7 +80,7 @@ VALUES
   async updateOne(id: string): Promise<object> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();
-    await queryRunner.startTransaction('READ COMMITTED');
+    await queryRunner.startTransaction('REPEATABLE READ');
     try {
       await queryRunner.query(`UPDATE [dbo].[PRODUCTS]
       SET [PRODUCT_AVAILABILITY] = 0

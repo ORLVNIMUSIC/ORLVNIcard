@@ -35,6 +35,7 @@ export default function Login({ host }) {
         <h1>Войдите в систему</h1>
         <form onSubmit={doLogIn}>
           <label htmlFor="user_email">Электронная почта</label>
+          <br />
           <input
             name="user_email"
             type="text"
@@ -42,7 +43,9 @@ export default function Login({ host }) {
             pattern="[^'&quot;]+$"
             title="Кавычки вида ' и &quot; нельзя вводить"
           />
+          <br />
           <label htmlFor="user_password">Пароль</label>
+          <br />
           <input
             name="user_password"
             type="text"
@@ -50,6 +53,7 @@ export default function Login({ host }) {
             pattern="[^'&quot;]+$"
             title="Кавычки вида ' и &quot; нельзя вводить"
           />
+          <br />
           <button type="submit" name="submit">
             Войти
           </button>
