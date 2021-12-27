@@ -18,14 +18,14 @@ import { SUGGESTIONS } from './suggestions/suggestion.entity';
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'mssql',
-        host: process.env.DB_HOST,
+        host: 'localhost',
         port: 1433,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASS,
+        username: 'user',
+        password: 'userpassword',
         options: {
           isolation: 'SNAPSHOT',
         },
-        database: process.env.DB_TABLE,
+        database: 'WEB_STORE_DB',
         entities: [PRODUCTS, USERS, ORDERS, SUGGESTIONS],
         extra: { trustServerCertificate: true },
       }),
