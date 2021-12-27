@@ -11,16 +11,16 @@ import { SuggestionService } from './suggestion.service';
 
 @Controller('server/suggest')
 export class SuggestionController {
-  constructor(private readonly userService: SuggestionService) {}
+  constructor(private readonly suggestionService: SuggestionService) {}
 
   @Get()
   async getAll() {
-    return await this.userService.findAll();
+    return await this.suggestionService.findAll();
   }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async saveOne(@Body() item: CreateSuggestionDTO): Promise<object> {
-    return await this.userService.createOne(item);
+    return await this.suggestionService.createOne(item);
   }
 }

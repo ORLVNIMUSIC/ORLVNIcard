@@ -1,7 +1,29 @@
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import MainLayout from '../layouts/main.layout';
 
 export default function Index({ cookies, host }) {
+  const [sugData, setSugData] = useState(null);
+
+  async function fetchSugData() {
+    const resSuggest = await fetch(`${host}/server/suggest`);
+    const suggestionsData = await resSuggest.json();
+    if (!suggestionsData) {
+      alert('Что-то пошло не так, попробуйте еще раз');
+    }
+    suggestionsData.sort((a, b) => {
+      return Date.parse(b.sug_date) - Date.parse(a.sug_date);
+    });
+
+    setSugData({
+      suggestions: suggestionsData,
+    });
+  }
+
+  useEffect(() => {
+    fetchSugData();
+  }, []);
+
   async function sendSug(event) {
     event.preventDefault();
     event.target.submit.disabled = true;
@@ -30,6 +52,7 @@ export default function Index({ cookies, host }) {
           break;
       }
       event.target.sug_text.value = '';
+      fetchSugData();
       event.target.submit.disabled = false;
     } else {
       event.target.submit.disabled = false;
@@ -57,7 +80,7 @@ export default function Index({ cookies, host }) {
         </Link>
       </div>
 
-      <div className="container header">
+      <div className="suggestions">
         <form action="submit" onSubmit={sendSug}>
           <label htmlFor="sug_text">Введите пожелания для проекта:</label>
           <br />
@@ -70,6 +93,17 @@ export default function Index({ cookies, host }) {
             Отправить
           </button>
         </form>
+        {sugData ? (
+          sugData.suggestions.map((elem) => (
+            <div>
+              <hr />
+              <h5>{elem.sug_text}</h5>
+              <p>{new Date(Date.parse(elem.sug_date)).toString()}</p>
+            </div>
+          ))
+        ) : (
+          <div className="donut" />
+        )}
       </div>
     </MainLayout>
   );

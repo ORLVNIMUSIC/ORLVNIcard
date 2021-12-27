@@ -69,3 +69,18 @@ nav {
   height: 30px;
   animation: donut-spin 1.2s linear infinite;
 }
+
+.suggestions {
+  position: fixed;
+  width: 30%;
+  height: 200px;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  border: 3px solid darkblue;
+  border-radius: 15px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin: 15px;
+  padding: 10px;
+}
