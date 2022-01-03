@@ -42,7 +42,7 @@ export default function MainLayout({ children, title, name, host }) {
       <nav>
         <div
           style={{
-            border: 'solid white 1px',
+            borderBottom: 'solid black 1px',
             padding: '3px',
             borderRadius: '10px',
           }}

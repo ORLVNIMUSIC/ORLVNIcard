@@ -104,9 +104,7 @@ export default function Products({ cookies, host }) {
             <h3>{item.product_name}</h3>
             <h4>
               Предоставляет услугу:{' '}
-              <strong>
-                {data.users.find((el) => el.user_id === item.user_id).user_name}
-              </strong>
+              {data.users.find((el) => el.user_id === item.user_id).user_name}
             </h4>
             <Link href={`/products/${item.product_id}`}>
               <a>Перейти на страницу услуги</a>
