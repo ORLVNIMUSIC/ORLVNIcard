@@ -45,22 +45,38 @@ nav {
   border-radius: 15px;
 
   button {
+    display: inline;
     border-color: rgb(121, 121, 121);
     border-radius: 5px;
     &:hover {
       background-color: rgb(219, 219, 219);
     }
   }
-
-  @media only screen and (max-width: 700px) {
-    height: 80px;
-    display: inline;
+}
+@media only screen and (max-width: 700px) {
+  $navHeight: 80px;
+  nav {
+    height: $navHeight;
+    display: inline-flex;
     a {
-      margin-right: 5px;
+      margin: 0px 5px;
     }
+  }
+  body {
+    padding-top: $navHeight;
   }
 }
 
+@media only screen and (max-width: 450px) {
+  $navHeight: 110px;
+  nav {
+    height: $navHeight;
+    display: inline;
+  }
+  body {
+    padding-top: $navHeight;
+  }
+}
 @keyframes donut-spin {
   0% {
     transform: rotate(0deg);
@@ -69,6 +85,7 @@ nav {
     transform: rotate(360deg);
   }
 }
+
 .donut {
   $vmargin: 50px;
   margin: auto;
@@ -83,9 +100,9 @@ nav {
 }
 
 .suggestions {
-  position: fixed;
-  width: 30%;
-  height: 200px;
+  position: absolute;
+  background-color: #fff;
+  height: 20%;
   right: 0;
   bottom: 0;
   overflow: auto;

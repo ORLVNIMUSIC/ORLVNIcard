@@ -28,7 +28,10 @@ export default function Index({ cookies, host }) {
     event.preventDefault();
     event.target.submit.disabled = true;
     const regex = new RegExp('[\'"]');
-    if (!regex.exec(event.target.sug_text.value)) {
+    if (
+      !regex.exec(event.target.sug_text.value) &&
+      event.target.sug_text.value.trim() !== ''
+    ) {
       const response = await fetch(`${host}/server/suggest`, {
         method: 'post',
         body: JSON.stringify({
