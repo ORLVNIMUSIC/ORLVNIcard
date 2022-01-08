@@ -20,22 +20,29 @@ export default function Products({ cookies, host }) {
     >
       <div className="container header">
         <h1>Список всех доступных услуг</h1>
-        <Link href={'/'}>
-          <a>Перейти к домашней странице</a>
-        </Link>
-        <br />
         <Link href={'/products/create'}>
           <a>Создать свою услугу</a>
         </Link>
-        <br />
-        <input
-          type="checkbox"
-          onChange={checkboxHandler}
-          name="AvailableOnly"
-          checked={checkbox}
-          style={{ margin: 0 }}
-        />
-        <label htmlFor="AvailableOnly" id="AvailableLabel">
+        <hr />
+        <button
+          onClick={() => {
+            alert(
+              `Это страница опубликованных услуг. В этом разделе можно просмотреть все услуги, опубликованные в этом приложении другими пользователями. Изначально показываются только услуги, которые доступны для приобретения. Чтобы просмотреть все поменяйте значение чекбокса ниже.
+              
+Также у вас есть возможность создать свою собственную услугу. Для этого кликните на соответствующую ссылку.`,
+            );
+          }}
+        >
+          Помощь
+        </button>
+        <hr />
+        <label>
+          <input
+            type="checkbox"
+            onChange={checkboxHandler}
+            checked={checkbox}
+            style={{ margin: 0 }}
+          />
           Посмотреть только доступные
         </label>
       </div>

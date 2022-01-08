@@ -10,24 +10,29 @@ export default function Orders({ dataUsers, dataProducts, cookies, host }) {
     >
       <div className="container header">
         <h1>Заказы, которые вы сделали</h1>
-        <Link href={'/'}>
-          <a>Перейти к домашней странице</a>
-        </Link>
+        <hr />
+        <button
+          onClick={() => {
+            alert(`Это страница приобретенных вами услуг, чтобы не забыть.`);
+          }}
+        >
+          Помощь
+        </button>
+        <hr />
       </div>
       {dataProducts.map((item) => (
         <div className="container" key={item.product_id}>
           <h3>{item.product_name}</h3>
-          <h4>
-            Владелец услуги:{' '}
-            <strong>
-              {dataUsers.find((el) => el.user_id === item.user_id).user_name}
-            </strong>
-          </h4>
+          <p>
+            Предоставляет услугу:{' '}
+            {dataUsers.find((el) => el.user_id === item.user_id).user_name}
+          </p>
+
           <Link href={`/products/${item.product_id}`}>
             <a>Перейти на страницу продукта</a>
           </Link>
-          <p>{item.product_desc}</p>
-          <p>{item.product_cost} р.</p>
+          <p>Описание услуги: {item.product_desc}</p>
+          <p>Стоимость услуги: {item.product_cost} р.</p>
         </div>
       ))}
     </MainLayout>

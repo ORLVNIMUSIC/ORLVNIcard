@@ -34,7 +34,7 @@ export default function Login({ host }) {
       <div className="container">
         <h1>Войдите в систему</h1>
         <form onSubmit={doLogIn}>
-          <label htmlFor="user_email">Электронная почта</label>
+          <label htmlFor="user_email">Имя пользователя (псевдоним)</label>
           <br />
           <input
             name="user_email"
@@ -48,7 +48,7 @@ export default function Login({ host }) {
           <br />
           <input
             name="user_password"
-            type="text"
+            type="password"
             required
             pattern="[^'&quot;]+$"
             title="Кавычки вида ' и &quot; нельзя вводить"
@@ -58,6 +58,16 @@ export default function Login({ host }) {
             Войти
           </button>
         </form>
+        <hr />
+        <button
+          onClick={() => {
+            alert(
+              `Вы можете войти в систему используя уникальное имя пользователя и пароль.`,
+            );
+          }}
+        >
+          Помощь
+        </button>
         <h2>Не зарегистрированны в системе?</h2>
         <Link href={'/signup'}>Регистрация</Link>
       </div>

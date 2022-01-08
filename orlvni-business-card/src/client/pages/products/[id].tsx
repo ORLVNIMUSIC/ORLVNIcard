@@ -52,13 +52,14 @@ export default function Product({ dataProducts, dataUsers, cookies, host }) {
       name={cookies.user_name.split(' ')[0]}
       host={host}
     >
-      <div className="container">
+      <div className="container header">
         <h1>{dataProducts.product_name}</h1>
-        <Link href={'/'}>
-          <a>Перейти к домашней странице</a>
+        <Link href={'/products'}>
+          <a>Перейти к услугам</a>
         </Link>
         <p>Предоставляет услугу: {dataUsers.user_name}</p>
         <p>Описание услуги: {dataProducts.product_desc}</p>
+        <p>Стоимость услуги: {dataProducts.product_cost} р.</p>
         <button
           disabled={!dataProducts.product_availability}
           onClick={UseProduct}

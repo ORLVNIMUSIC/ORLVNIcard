@@ -10,9 +10,17 @@ export default function Users({ dataUsers, cookies, host }) {
     >
       <div className="container header">
         <h1>Зарегистрированные пользователи</h1>
-        <Link href={'/'}>
-          <a>Перейти к домашней странице</a>
-        </Link>
+        <hr />
+        <button
+          onClick={() => {
+            alert(
+              `Это страница всех зарегистрированных пользователей. Сделана просто так, можно полистать, посмеяться, половить кринж.`,
+            );
+          }}
+        >
+          Помощь
+        </button>
+        <hr />
       </div>
       {dataUsers.map((item) => (
         <div className="container" key={item.user_id}>

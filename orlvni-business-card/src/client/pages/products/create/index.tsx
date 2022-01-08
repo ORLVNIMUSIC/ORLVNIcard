@@ -49,14 +49,25 @@ export default function CreateProduct({ cookies, host }) {
       name={cookies.user_name.split(' ')[0]}
       host={host}
     >
-      <div className="container">
+      <div className="container header">
         <h1>Страница создания услуги</h1>
-        <Link href={'/'}>
-          <a>Перейти к домашней странице</a>
+        <Link href={'/products'}>
+          <a>Перейти к услугам</a>
         </Link>
-
+        <hr />
+        <button
+          onClick={() => {
+            alert(
+              `Это страница создания своей услуги. Для создания необходимо указать соответствующие поля. Учитывайте, что услуги одноразовые.`,
+            );
+          }}
+        >
+          Помощь
+        </button>
+        <hr />
         <form onSubmit={createProduct}>
           <label htmlFor="product_name">Краткое наименование услуги</label>
+          <br />
           <input
             name="product_name"
             type="text"
@@ -74,6 +85,7 @@ export default function CreateProduct({ cookies, host }) {
           />
           <br />
           <label htmlFor="product_cost">Цена услуги (в рублях)</label>
+          <br />
           <input
             name="product_cost"
             type="number"

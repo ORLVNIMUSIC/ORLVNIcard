@@ -46,6 +46,7 @@ export default function MainLayout({ children, title, name, host }) {
             padding: '3px',
             borderRadius: '10px',
           }}
+          title="О, смотрите, тут высвечивается имя, которое вы указали!"
         >
           {name}
         </div>

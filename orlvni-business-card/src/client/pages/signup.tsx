@@ -48,7 +48,7 @@ export default function Login({ host }) {
       <div className="container">
         <h1>Укажите данные для регистрации</h1>
         <form onSubmit={createUser}>
-          <label htmlFor="user_email">Электронная почта</label>
+          <label htmlFor="user_email">Имя пользователя (псевдоним)</label>
           <input
             name="user_email"
             type="text"
@@ -60,7 +60,7 @@ export default function Login({ host }) {
           <label htmlFor="user_password">Пароль</label>
           <input
             name="user_password"
-            type="text"
+            type="password"
             required
             pattern="[^'&quot;]+$"
             title="Кавычки вида ' и &quot; нельзя вводить"
@@ -87,6 +87,22 @@ export default function Login({ host }) {
             Регистрация
           </button>
         </form>
+        <hr />
+        <button
+          onClick={() => {
+            alert(
+              `Вы можете зарегистрироваться используя уникальное имя пользователя и пароль.
+
+Убедитесь, что вы помните пароль, так как не существует на данный момент способа восстановления пароля.
+
+Ваше имя будет отображаться сверху в блоке навигации после входа в систему.
+
+После регистрации необходимо будет войти в систему.`,
+            );
+          }}
+        >
+          Помощь
+        </button>
         <h2>Уже зарегистрированны?</h2>
         <Link href={'/login'}>Войти</Link>
       </div>
