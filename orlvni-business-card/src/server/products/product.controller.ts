@@ -5,8 +5,8 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  Patch,
   Post,
-  Put,
 } from '@nestjs/common';
 import { CreateProductDTO } from './DTO/create.product.dto';
 import { ProductService } from './product.service';
@@ -36,7 +36,7 @@ export class ProductController {
     return await this.productService.createOne(item);
   }
 
-  @Put(':id')
+  @Patch('/:id')
   @HttpCode(HttpStatus.OK)
   async updateOne(@Param('id') id: string): Promise<object> {
     return await this.productService.updateOne(id);

@@ -109,7 +109,7 @@ export default function Index({ cookies, host }) {
         </form>
         {sugData ? (
           sugData.suggestions.map((elem) => (
-            <div>
+            <div key={elem.sug_id}>
               <hr />
               <h5>{elem.sug_text}</h5>
               <p>{new Date(Date.parse(elem.sug_date)).toString()}</p>

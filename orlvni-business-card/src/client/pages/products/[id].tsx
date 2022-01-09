@@ -26,9 +26,10 @@ export default function Product({ dataProducts, dataUsers, cookies, host }) {
         const responseUpdateProduct = await fetch(
           `${host}/server/products/${dataProducts.product_id}`,
           {
-            method: 'put',
+            method: 'PATCH',
           },
         );
+
         const dataUpdateProduct = await responseUpdateProduct.json();
         switch (dataUpdateProduct.message) {
           case 'success':
