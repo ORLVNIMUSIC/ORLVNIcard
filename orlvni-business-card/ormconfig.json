@@ -1,0 +1,17 @@
+{
+  "type": "mssql",
+  "host": "localhost",
+  "port": 1433,
+  "username": "user",
+  "password": "userpassword",
+  "options": {
+    "isolation": "SNAPSHOT"
+  },
+  "database": "WEB_STORE_DB",
+  "entities": ["dist/**/*.entity.{ts,js}"],
+  "extra": { "trustServerCertificate": true },
+  "migrations": ["src/server/migration/*.ts"],
+  "cli": {
+    "migrationsDir": "src/server/migration"
+  }
+}

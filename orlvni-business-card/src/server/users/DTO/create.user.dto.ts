@@ -3,5 +3,5 @@ export class CreateUserDTO {
   user_name: string;
   user_bio: string;
   user_password: string;
-  user_email: string;
+  user_nickname: string;
 }

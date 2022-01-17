@@ -15,5 +15,5 @@ export class USERS {
   user_password: string;
 
   @Column()
-  user_email: string;
+  user_nickname: string;
 }

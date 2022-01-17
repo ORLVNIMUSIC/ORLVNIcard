@@ -33,12 +33,14 @@ export class UserService {
     }
   }
 
-  async findOneByEmail(email: string): Promise<USERS> {
+  async findOneByEmail(nickname: string): Promise<USERS> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      return await queryRunner.manager.findOne(USERS, { user_email: email });
+      return await queryRunner.manager.findOne(USERS, {
+        user_nickname: nickname,
+      });
     } catch (err) {
       return err;
     } finally {
@@ -58,13 +60,13 @@ export class UserService {
       ,[USER_NAME]
       ,[USER_BIO]
       ,[USER_PASSWORD]
-      ,[USER_EMAIL])
+      ,[USER_NICKNAME])
   VALUES
       (DEFAULT
       ,'${item.user_name}'
       ,'${item.user_bio}'
       ,'${hash}'
-      ,'${item.user_email}')`);
+      ,'${item.user_nickname}')`);
       await queryRunner.commitTransaction();
       return { message: 'success' };
     } catch (err) {
