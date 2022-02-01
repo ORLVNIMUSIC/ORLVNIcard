@@ -1,7 +1,10 @@
+import { ObjectID } from 'typeorm';
+
 export class CreateUserDTO {
-  user_id: string;
-  user_name: string;
-  user_bio: string;
-  user_password: string;
-  user_nickname: string;
+  readonly _id: ObjectID;
+  readonly user_id: string;
+  readonly user_name: string;
+  readonly user_bio: string;
+  readonly user_password: string;
+  readonly user_nickname: string;
 }

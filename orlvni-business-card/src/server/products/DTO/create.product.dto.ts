@@ -1,4 +1,7 @@
+import { ObjectID } from 'typeorm';
+
 export class CreateProductDTO {
+  readonly id: ObjectID;
   readonly product_id: string;
   readonly product_name: string;
   readonly product_desc: string;

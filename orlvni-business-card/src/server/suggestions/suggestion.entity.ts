@@ -1,7 +1,16 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  ObjectIdColumn,
+  ObjectID,
+} from 'typeorm';
 
 @Entity()
 export class SUGGESTIONS {
+  @ObjectIdColumn()
+  id: ObjectID;
+
   @PrimaryColumn()
   sug_id: string;
 

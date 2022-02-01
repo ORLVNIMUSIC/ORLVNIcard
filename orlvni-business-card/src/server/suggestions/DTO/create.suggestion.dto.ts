@@ -1,6 +1,9 @@
+import { ObjectID } from 'typeorm';
+
 export class CreateSuggestionDTO {
-  sug_id: string;
-  user_id: string;
-  sug_text: string;
-  sug_date: string;
+  readonly id: ObjectID;
+  readonly sug_id: string;
+  readonly user_id: string;
+  readonly sug_text: string;
+  readonly sug_date: string;
 }

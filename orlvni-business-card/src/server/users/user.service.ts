@@ -1,5 +1,5 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { Connection } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { Connection, getMongoManager } from 'typeorm';
 import { USERS } from './user.entity';
 import * as bcrypt from 'bcrypt';
 
@@ -8,16 +8,9 @@ export class UserService {
   constructor(private connection: Connection) {}
 
   async findAll(): Promise<USERS[]> {
-    const queryRunner = this.connection.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      return await queryRunner.manager.find(USERS);
-    } catch (err) {
-      return err;
-    } finally {
-      await queryRunner.rollbackTransaction();
-    }
+    const manager = getMongoManager();
+
+    return await manager.find();
   }
 
   async findOne(id: string): Promise<USERS> {
@@ -33,7 +26,7 @@ export class UserService {
     }
   }
 
-  async findOneByEmail(nickname: string): Promise<USERS> {
+  async findOneByNickname(nickname: string): Promise<USERS> {
     const queryRunner = this.connection.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();

@@ -17,17 +17,13 @@ import { SUGGESTIONS } from './suggestions/suggestion.entity';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
-        type: 'mssql',
-        host: 'localhost',
-        port: 1433,
-        username: 'user',
-        password: 'userpassword',
-        options: {
-          isolation: 'SNAPSHOT',
-        },
-        database: 'WEB_STORE_DB',
+        type: 'mongodb',
+        url: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`,
         entities: [PRODUCTS, USERS, ORDERS, SUGGESTIONS],
-        extra: { trustServerCertificate: true },
+        extra: {
+          trustServerCertificate: true,
+          useUnifiedTopology: true,
+        },
       }),
     }),
     ProductModule,
