@@ -1,11 +1,3 @@
-import {
-  Entity,
-  Column,
-  PrimaryColumn,
-  ObjectIdColumn,
-  ObjectID,
-} from 'typeorm';
-
 @Entity()
 export class SUGGESTIONS {
   @ObjectIdColumn()

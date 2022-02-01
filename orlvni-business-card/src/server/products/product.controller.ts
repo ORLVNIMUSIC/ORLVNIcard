@@ -8,7 +8,6 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateProductDTO } from './DTO/create.product.dto';
 import { ProductService } from './product.service';
 
 @Controller('server/products')
@@ -32,7 +31,7 @@ export class ProductController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async saveOne(@Body() item: CreateProductDTO): Promise<object> {
+  async saveOne(@Body() item): Promise<object> {
     return await this.productService.createOne(item);
   }
 
