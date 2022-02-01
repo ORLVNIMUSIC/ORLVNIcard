@@ -1,11 +1,16 @@
 import { Module } from '@nestjs/common';
 import { SuggestionController } from './suggestion.controller';
-import { SUGGESTIONS } from './suggestion.entity';
+import { MongooseModule } from '@nestjs/mongoose';
+import { SUGGESTION, SUGGESTIONSchema } from './suggestion.schema';
 import { SuggestionService } from './suggestion.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([SUGGESTIONS])],
-  exports: [TypeOrmModule],
+  imports: [
+    MongooseModule.forFeature([
+      { name: SUGGESTION.name, schema: SUGGESTIONSchema },
+    ]),
+  ],
+  exports: [MongooseModule],
   providers: [SuggestionService],
   controllers: [SuggestionController],
 })
