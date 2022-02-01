@@ -8,6 +8,9 @@ import { ViewModule } from './view/view.module';
 import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './orders/order.module';
 import { SuggestionModule } from './suggestions/suggestions.module';
+require('dotenv').config({
+  path: './secrets.env',
+});
 
 @Module({
   imports: [
