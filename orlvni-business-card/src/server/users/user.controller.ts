@@ -7,8 +7,7 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { CreateUserDTO } from './DTO/create.user.dto';
-import { USERS } from './user.entity';
+import { USER } from './user.schema';
 import { UserService } from './user.service';
 
 @Controller('server/users')
@@ -27,10 +26,10 @@ export class UserController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async saveOne(@Body() item: CreateUserDTO): Promise<object> {
+  async saveOne(@Body() item): Promise<object> {
     const user = await this.userService.findOneByNickname(item.user_nickname);
 
-    if (!(user instanceof USERS)) {
+    if (!(user instanceof USER)) {
       return await this.userService.createOne(item);
     } else {
       return {

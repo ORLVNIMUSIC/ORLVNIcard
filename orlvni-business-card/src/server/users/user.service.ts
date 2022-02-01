@@ -1,72 +1,66 @@
 import { Injectable } from '@nestjs/common';
-import { Connection, getMongoManager } from 'typeorm';
-import { USERS } from './user.entity';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { USER, USERDocument } from './user.schema';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-  constructor(private connection: Connection) {}
+  constructor(@InjectModel(USER.name) private USERModel: Model<USERDocument>) {}
 
-  async findAll(): Promise<USERS[]> {
-    const manager = getMongoManager();
-
-    return await manager.find();
+  async findAll(): Promise<USER[]> {
+    return this.USERModel.find().exec();
   }
 
-  async findOne(id: string): Promise<USERS> {
-    const queryRunner = this.connection.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      return await queryRunner.manager.findOne(USERS, id);
-    } catch (err) {
-      return err;
-    } finally {
-      await queryRunner.rollbackTransaction();
-    }
+  async findOne(id: string): Promise<USER> {
+    return this.USERModel.findOne({ USER_ID: id }).exec();
   }
 
-  async findOneByNickname(nickname: string): Promise<USERS> {
-    const queryRunner = this.connection.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      return await queryRunner.manager.findOne(USERS, {
-        user_nickname: nickname,
-      });
-    } catch (err) {
-      return err;
-    } finally {
-      await queryRunner.rollbackTransaction();
-    }
+  async findOneByNickname(nickname: string): Promise<USER> {
+    // const queryRunner = this.connection.createQueryRunner();
+    // await queryRunner.connect();
+    // await queryRunner.startTransaction();
+    // try {
+    //   return await queryRunner.manager.findOne(USERS, {
+    //     user_nickname: nickname,
+    //   });
+    // } catch (err) {
+    //   return err;
+    // } finally {
+    //   await queryRunner.rollbackTransaction();
+    // }
+
+    return this.USERModel.findOne({ USER_NICKNAME: nickname }).exec();
   }
 
-  async createOne(item: USERS): Promise<object> {
-    const queryRunner = this.connection.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction('READ COMMITTED');
-    const hash = await bcrypt.hash(item.user_password, 10);
+  async createOne(item: USER): Promise<object> {
+    //   const queryRunner = this.connection.createQueryRunner();
+    //   await queryRunner.connect();
+    //   await queryRunner.startTransaction('READ COMMITTED');
+    //   const hash = await bcrypt.hash(item.user_password, 10);
 
-    try {
-      await queryRunner.query(`INSERT INTO [dbo].[USERS]
-      ([USER_ID]
-      ,[USER_NAME]
-      ,[USER_BIO]
-      ,[USER_PASSWORD]
-      ,[USER_NICKNAME])
-  VALUES
-      (DEFAULT
-      ,'${item.user_name}'
-      ,'${item.user_bio}'
-      ,'${hash}'
-      ,'${item.user_nickname}')`);
-      await queryRunner.commitTransaction();
-      return { message: 'success' };
-    } catch (err) {
-      await queryRunner.rollbackTransaction();
-      return { message: 'denied' };
-    } finally {
-      await queryRunner.release();
-    }
+    //   try {
+    //     await queryRunner.query(`INSERT INTO [dbo].[USERS]
+    //     ([USER_ID]
+    //     ,[USER_NAME]
+    //     ,[USER_BIO]
+    //     ,[USER_PASSWORD]
+    //     ,[USER_NICKNAME])
+    // VALUES
+    //     (DEFAULT
+    //     ,'${item.user_name}'
+    //     ,'${item.user_bio}'
+    //     ,'${hash}'
+    //     ,'${item.user_nickname}')`);
+    //     await queryRunner.commitTransaction();
+    //     return { message: 'success' };
+    //   } catch (err) {
+    //     await queryRunner.rollbackTransaction();
+    //     return { message: 'denied' };
+    //   } finally {
+    //     await queryRunner.release();
+    //   }
+
+    return this.USERModel.create(item);
   }
 }
