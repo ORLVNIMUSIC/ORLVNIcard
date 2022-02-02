@@ -9,11 +9,11 @@ export class UserService {
   constructor(@InjectModel(USER.name) private USERModel: Model<USERDocument>) {}
 
   async findAll(): Promise<USER[]> {
-    return this.USERModel.find().exec();
+    return await this.USERModel.find().lean().exec();
   }
 
   async findOne(id: string): Promise<USER> {
-    return this.USERModel.findOne({ USER_ID: id }).exec();
+    return await this.USERModel.findOne({ user_id: id }).lean().exec();
   }
 
   async findOneByNickname(nickname: string): Promise<USER> {
@@ -30,7 +30,9 @@ export class UserService {
     //   await queryRunner.rollbackTransaction();
     // }
 
-    return this.USERModel.findOne({ USER_NICKNAME: nickname }).exec();
+    return await this.USERModel.findOne({ user_nickname: nickname })
+      .lean()
+      .exec();
   }
 
   async createOne(item: USER): Promise<object> {
@@ -61,6 +63,6 @@ export class UserService {
     //     await queryRunner.release();
     //   }
 
-    return this.USERModel.create(item);
+    return await this.USERModel.create(item);
   }
 }

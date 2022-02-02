@@ -11,7 +11,7 @@ export class OrderService {
   ) {}
 
   async findAll(id: string): Promise<ORDER[]> {
-    return this.ORDERModel.find().exec();
+    return await this.ORDERModel.find().lean().exec();
   }
 
   async createOne(item): Promise<object> {
@@ -46,6 +46,6 @@ export class OrderService {
     //     return { message: 'denied' };
     //   }
 
-    return this.ORDERModel.create(item);
+    return await this.ORDERModel.create(item);
   }
 }

@@ -10,15 +10,17 @@ export class ProductService {
   ) {}
 
   async findAll(): Promise<PRODUCT[]> {
-    return this.PRODUCTModel.find().exec();
+    return await this.PRODUCTModel.find().lean().exec();
   }
 
   async findAllAvailable(): Promise<PRODUCT[]> {
-    return this.PRODUCTModel.find({ PRODUCT_AVAILABILITY: true }).exec();
+    return await this.PRODUCTModel.find({ product_availability: true })
+      .lean()
+      .exec();
   }
 
   async findOne(id: string): Promise<PRODUCT> {
-    return this.PRODUCTModel.findOne({ PRODUCT_ID: id }).exec();
+    return await this.PRODUCTModel.findOne({ product_id: id }).lean().exec();
   }
 
   async createOne(item): Promise<object> {
@@ -49,7 +51,7 @@ export class ProductService {
     //       await queryRunner.release();
     //     }
 
-    return this.PRODUCTModel.create(item);
+    return await this.PRODUCTModel.create(item);
   }
 
   async updateOne(id: string): Promise<object> {
@@ -69,9 +71,9 @@ export class ProductService {
     //   await queryRunner.release();
     // }
 
-    return this.PRODUCTModel.updateOne(
-      { PRODUCT_ID: id },
-      { $set: { PRODUCT_AVAILABILITY: false } },
+    return await this.PRODUCTModel.updateOne(
+      { product_id: id },
+      { $set: { product_availability: false } },
     );
   }
 }

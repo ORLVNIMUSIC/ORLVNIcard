@@ -11,7 +11,9 @@ export class SuggestionService {
   ) {}
 
   async findAll(): Promise<SUGGESTION[]> {
-    return this.SUGGESTIONModel.find().exec();
+    console.log(await this.SUGGESTIONModel.find().lean().exec());
+
+    return await this.SUGGESTIONModel.find().lean().exec();
   }
 
   async createOne(item: SUGGESTION): Promise<object> {
@@ -38,6 +40,6 @@ export class SuggestionService {
     //     await queryRunner.release();
     //   }
 
-    return this.SUGGESTIONModel.create(item);
+    return await this.SUGGESTIONModel.create(item);
   }
 }
