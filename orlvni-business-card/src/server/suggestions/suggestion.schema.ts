@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 
 export type SUGGESTIONDocument = SUGGESTION & Document;
 
-@Schema()
+@Schema({ versionKey: false })
 export class SUGGESTION {
   @Prop({ unique: true, default: randomUUID().toUpperCase() })
   sug_id: string;

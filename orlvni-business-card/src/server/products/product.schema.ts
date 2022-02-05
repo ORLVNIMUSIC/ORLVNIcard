@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 
 export type PRODUCTDocument = PRODUCT & Document;
 
-@Schema()
+@Schema({ versionKey: false })
 export class PRODUCT {
   @Prop({ unique: true, default: randomUUID().toUpperCase() })
   product_id: string;

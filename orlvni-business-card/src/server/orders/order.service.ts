@@ -10,8 +10,8 @@ export class OrderService {
     private ORDERModel: Model<ORDERDocument>,
   ) {}
 
-  async findAll(id: string): Promise<ORDER[]> {
-    return await this.ORDERModel.find().lean().exec();
+  async findAllByID(id: string): Promise<ORDER[]> {
+    return await this.ORDERModel.find({ user_id: id }).lean().exec();
   }
 
   async createOne(item): Promise<object> {
@@ -45,7 +45,11 @@ export class OrderService {
     //   } else {
     //     return { message: 'denied' };
     //   }
-
-    return await this.ORDERModel.create(item);
+    try {
+      await this.ORDERModel.create(item);
+      return { message: 'success' };
+    } catch {
+      return { message: 'denied' };
+    }
   }
 }

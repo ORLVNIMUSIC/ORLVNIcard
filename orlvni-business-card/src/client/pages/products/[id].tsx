@@ -10,7 +10,6 @@ export default function Product({ dataProducts, dataUsers, cookies, host }) {
     const responseCreateOrder = await fetch(`${host}/server/orders/`, {
       method: 'post',
       body: JSON.stringify({
-        order_id: 'default',
         product_id: dataProducts.product_id,
         user_id: cookies.user_id,
       }),

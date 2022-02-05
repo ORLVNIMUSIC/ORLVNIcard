@@ -15,8 +15,8 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Get(':id')
-  async getOne(@Param('id') id: string): Promise<ORDER[]> {
-    return await this.orderService.findAll(id);
+  async getAllByID(@Param('id') id: string): Promise<ORDER[]> {
+    return await this.orderService.findAllByID(id);
   }
 
   @Post()

@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 
 export type ORDERDocument = ORDER & Document;
 
-@Schema()
+@Schema({ versionKey: false })
 export class ORDER {
   @Prop({ unique: true, default: randomUUID().toUpperCase() })
   order_id: string;

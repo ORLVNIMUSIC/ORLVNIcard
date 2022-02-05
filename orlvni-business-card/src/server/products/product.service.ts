@@ -50,8 +50,12 @@ export class ProductService {
     //     } finally {
     //       await queryRunner.release();
     //     }
-
-    return await this.PRODUCTModel.create(item);
+    try {
+      await this.PRODUCTModel.create(item);
+      return { message: 'success' };
+    } catch {
+      return { message: 'denied' };
+    }
   }
 
   async updateOne(id: string): Promise<object> {
@@ -70,10 +74,14 @@ export class ProductService {
     // } finally {
     //   await queryRunner.release();
     // }
-
-    return await this.PRODUCTModel.updateOne(
-      { product_id: id },
-      { $set: { product_availability: false } },
-    );
+    try {
+      await this.PRODUCTModel.updateOne(
+        { product_id: id },
+        { $set: { product_availability: false } },
+      );
+      return { message: 'success' };
+    } catch {
+      return { message: 'denied' };
+    }
   }
 }

@@ -53,15 +53,6 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const resUsers = await fetch(`${host}/server/users`);
-  const dataUsers = await resUsers.json();
-
-  if (!dataUsers) {
-    return {
-      notFound: true,
-    };
-  }
-
   const dataProducts = await Promise.all(
     dataOrders.map(async (el) => {
       const responseProducts = await fetch(
@@ -75,6 +66,22 @@ export async function getServerSideProps(ctx) {
         };
       }
       return oneProduct;
+    }),
+  );
+
+  const dataUsers = await Promise.all(
+    dataProducts.map(async (el) => {
+      const responseProducts = await fetch(
+        `${host}/server/users/${el.user_id}`,
+      );
+
+      const oneUser = await responseProducts.json();
+      if (!oneUser) {
+        return {
+          notFound: true,
+        };
+      }
+      return oneUser;
     }),
   );
 

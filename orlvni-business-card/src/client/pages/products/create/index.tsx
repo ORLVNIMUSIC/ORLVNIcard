@@ -18,10 +18,10 @@ export default function CreateProduct({ cookies, host }) {
       const response = await fetch(`${host}/server/products`, {
         method: 'post',
         body: JSON.stringify({
-          product_id: 'default',
           product_name: event.target.product_name.value,
           product_desc: event.target.product_desc.value,
           product_cost: event.target.product_cost.value,
+          product_availability: true,
           user_id: userData.user_id,
         }),
         headers: {
