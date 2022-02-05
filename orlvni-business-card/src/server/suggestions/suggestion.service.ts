@@ -11,8 +11,6 @@ export class SuggestionService {
   ) {}
 
   async findAll(): Promise<SUGGESTION[]> {
-    console.log(await this.SUGGESTIONModel.find().lean().exec());
-
     return await this.SUGGESTIONModel.find().lean().exec();
   }
 

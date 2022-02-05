@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { USER, USERDocument } from './user.schema';
-// import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -63,6 +63,12 @@ export class UserService {
     //     await queryRunner.release();
     //   }
 
-    return await this.USERModel.create(item);
+    try {
+      item.user_password = await bcrypt.hash(item.user_password, 10);
+      await this.USERModel.create(item);
+      return { message: 'success' };
+    } catch {
+      return { message: 'denied' };
+    }
   }
 }

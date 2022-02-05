@@ -1,11 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { randomUUID } from 'crypto';
 import { Document } from 'mongoose';
 
 export type PRODUCTDocument = PRODUCT & Document;
 
 @Schema()
 export class PRODUCT {
-  @Prop()
+  @Prop({ unique: true, default: randomUUID().toUpperCase() })
   product_id: string;
 
   @Prop()

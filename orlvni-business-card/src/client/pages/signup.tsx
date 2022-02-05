@@ -13,9 +13,8 @@ export default function Login({ host }) {
       const response = await fetch(`${host}/server/users`, {
         method: 'post',
         body: JSON.stringify({
-          user_id: 'default',
           user_password: event.target.user_password.value,
-          user_email: event.target.user_email.value,
+          user_nickname: event.target.user_nickname.value,
           user_name: event.target.user_name.value,
           user_bio: event.target.user_bio.value,
         }),
@@ -48,9 +47,9 @@ export default function Login({ host }) {
       <div className="container">
         <h1>Укажите данные для регистрации</h1>
         <form onSubmit={createUser}>
-          <label htmlFor="user_email">Имя пользователя (псевдоним)</label>
+          <label htmlFor="user_nickname">Имя пользователя (псевдоним)</label>
           <input
-            name="user_email"
+            name="user_nickname"
             type="text"
             required
             pattern="[^'&quot;]+$"

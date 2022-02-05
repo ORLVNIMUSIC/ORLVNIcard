@@ -9,7 +9,7 @@ export class AuthController {
   @Post('/login')
   async logIn(@Body() body, @Res({ passthrough: true }) response: Response) {
     const validatedUser = await this.authService.validateUser(
-      body.user_email,
+      body.user_nickname,
       body.user_password,
     );
 

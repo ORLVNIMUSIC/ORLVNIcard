@@ -26,7 +26,7 @@ export default function Users({ dataUsers, cookies, host }) {
         <div className="container" key={item.user_id}>
           <p>{item.user_name}</p>
           <p>{item.user_bio}</p>
-          <p>{item.user_email}</p>
+          <p>{item.user_nickname}</p>
         </div>
       ))}
     </MainLayout>

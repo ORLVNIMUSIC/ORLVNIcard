@@ -33,7 +33,7 @@ export class UserController {
       return await this.userService.createOne(item);
     } else {
       return {
-        message: 'email is used',
+        message: 'nickname is used',
       };
     }
   }
