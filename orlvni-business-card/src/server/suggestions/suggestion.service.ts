@@ -37,7 +37,15 @@ export class SuggestionService {
     //   } finally {
     //     await queryRunner.release();
     //   }
-
-    return await this.SUGGESTIONModel.create(item);
+    try {
+      await this.SUGGESTIONModel.create(item);
+      return {
+        message: 'success',
+      };
+    } catch {
+      return {
+        message: 'denied',
+      };
+    }
   }
 }

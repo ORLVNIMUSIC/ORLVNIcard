@@ -15,8 +15,8 @@ export class SUGGESTION {
   @Prop()
   sug_text: string;
 
-  @Prop()
-  sug_date: string;
+  @Prop({ default: new Date(Date.now()) })
+  sug_date: Date;
 }
 
 export const SUGGESTIONSchema = SchemaFactory.createForClass(SUGGESTION);

@@ -35,10 +35,8 @@ export default function Index({ cookies, host }) {
       const response = await fetch(`${host}/server/suggest`, {
         method: 'post',
         body: JSON.stringify({
-          sug_id: 'default',
           user_id: cookies.user_id,
           sug_text: event.target.sug_text.value,
-          sug_date: 'default',
         }),
         headers: {
           'Content-Type': 'application/json',
