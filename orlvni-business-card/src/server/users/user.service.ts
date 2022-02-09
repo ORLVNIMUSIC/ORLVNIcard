@@ -64,7 +64,10 @@ export class UserService {
     //   }
 
     try {
-      item.user_password = await bcrypt.hash(item.user_password, 10);
+      item.user_password = await bcrypt.hash(
+        item.user_password,
+        Number(process.env.HASHSECRET),
+      );
       await this.USERModel.create(item);
       return { message: 'success' };
     } catch {
