@@ -6,7 +6,7 @@ export default function Index({ cookies, host }) {
   const [sugData, setSugData] = useState(null);
 
   async function fetchSugData() {
-    const resSuggest = await fetch(`${host}/server/suggest`);
+    const resSuggest: Response = await fetch(`${host}/server/suggest`);
     const suggestionsData = await resSuggest.json();
     if (!suggestionsData) {
       alert('Что-то пошло не так, попробуйте еще раз');
@@ -124,7 +124,7 @@ export async function getServerSideProps(ctx) {
   const { req } = ctx;
 
   const { cookies } = req;
-  const host = `${process.env.PROTOCOL}://${req.rawHeaders[1]}`;
+  const host: string = `${process.env.PROTOCOL}://${req.rawHeaders[1]}`;
 
   return {
     props: { cookies, host },
