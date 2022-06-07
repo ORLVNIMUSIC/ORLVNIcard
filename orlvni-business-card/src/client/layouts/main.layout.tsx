@@ -4,10 +4,24 @@ import Link from 'next/link';
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-export default function MainLayout({ children, title, name, host }) {
+export default function MainLayout({ children, title }) {
   const router = useRouter();
   const [layoutTitle, setTitle] = useState();
+  const [host, setHost] = useState('');
+  const [name, setName] = useState('');
+
   useEffect(() => setTitle(title));
+  useEffect(() =>
+    setHost(`${window.location.protocol}//${window.location.host}`),
+  );
+  useEffect(() =>
+    setName(
+      Object.fromEntries(
+        new URLSearchParams(document.cookie.replace(/; /g, '&')),
+      ).user_name.split(' ')[0],
+    ),
+  );
+
   async function LogOut(event) {
     event.target.disabled = true;
     await fetch(`${host}/server/logout`, {

@@ -1,14 +1,9 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import MainLayout from '../layouts/main.layout';
 
-export default function Index({ cookies, host }) {
+export default function Index() {
   return (
-    <MainLayout
-      title={'Home'}
-      name={cookies.user_name.split(' ')[0]}
-      host={host}
-    >
+    <MainLayout title={'Home'}>
       <div className="container header">
         <h1>Добро пожаловать на Avito на минималках</h1>
         <hr />
@@ -36,14 +31,4 @@ export default function Index({ cookies, host }) {
       </div>
     </MainLayout>
   );
-}
-export async function getServerSideProps(ctx) {
-  const { req } = ctx;
-
-  const { cookies } = req;
-  const host: string = `${process.env.PROTOCOL}://${req.rawHeaders[1]}`;
-
-  return {
-    props: { cookies, host },
-  };
 }
