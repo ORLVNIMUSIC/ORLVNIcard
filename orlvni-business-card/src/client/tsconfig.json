@@ -20,7 +20,7 @@
     "next.config.js",
     "pages/**/*.ts",
     "pages/**/*.tsx",
-    "pages/index.tsx",
+    "pages/index.server.tsx",
     "pages/_app.tsx",
     "pages/_document.tsx"
   ],

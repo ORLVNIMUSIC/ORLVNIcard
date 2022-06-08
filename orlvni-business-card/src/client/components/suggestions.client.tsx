@@ -2,6 +2,19 @@ import { useEffect, useState } from 'react';
 
 export default function Suggestions() {
   const [sugData, setSugData] = useState(null);
+  const [host, setHost] = useState('');
+  const [cookies, setCookies] = useState(null);
+
+  useEffect(() =>
+    setHost(`${window.location.protocol}//${window.location.host}`),
+  );
+  useEffect(() =>
+    setCookies(
+      Object.fromEntries(
+        new URLSearchParams(document.cookie.replace(/; /g, '&')),
+      ),
+    ),
+  );
 
   async function fetchSugData() {
     const resSuggest: Response = await fetch(`${host}/server/suggest`);

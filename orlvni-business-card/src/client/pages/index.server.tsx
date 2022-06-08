@@ -1,22 +1,19 @@
 import Link from 'next/link';
 import MainLayout from '../layouts/main.layout';
+import HelpButtom from '../components/helpButton.client';
 
 export default function Index() {
   return (
     <MainLayout title={'Home'}>
+      <HelpButtom
+        helpText={
+          'Это домашняя страница приложения. Тут представлен интерфейс для перехода к разным разделам и модуль обратной связи с разработчиками.'
+        }
+      />
       <div className="container header">
         <h1>Добро пожаловать на Avito на минималках</h1>
         <hr />
-        <button
-          onClick={() => {
-            alert(
-              `Это домашняя страница приложения. Тут представлен интерфейс для перехода к разным разделам и модуль обратной связи с разработчиками.`,
-            );
-          }}
-        >
-          Помощь
-        </button>
-        <hr />
+
         <Link href={'/products'}>
           <a>Перейти к услугам</a>
         </Link>

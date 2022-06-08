@@ -6,11 +6,9 @@ import { useEffect, useState } from 'react';
 
 export default function MainLayout({ children, title }) {
   const router = useRouter();
-  const [layoutTitle, setTitle] = useState();
   const [host, setHost] = useState('');
   const [name, setName] = useState('');
 
-  useEffect(() => setTitle(title));
   useEffect(() =>
     setHost(`${window.location.protocol}//${window.location.host}`),
   );
@@ -51,7 +49,7 @@ export default function MainLayout({ children, title }) {
   return (
     <>
       <Head>
-        <title>{layoutTitle} | Avito на минималках</title>
+        <title>{title} | Avito на минималках</title>
       </Head>
       <nav>
         <div
