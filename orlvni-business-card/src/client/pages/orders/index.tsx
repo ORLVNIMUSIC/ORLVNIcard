@@ -3,11 +3,7 @@ import MainLayout from '../../layouts/main.layout';
 
 export default function Orders({ dataUsers, dataProducts, cookies, host }) {
   return (
-    <MainLayout
-      title={'My orders'}
-      name={cookies.user_name.split(' ')[0]}
-      host={host}
-    >
+    <MainLayout>
       <div className="container header">
         <h1>Заказы, которые вы сделали</h1>
         <hr />

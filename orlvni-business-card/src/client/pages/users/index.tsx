@@ -4,9 +4,6 @@ import MainLayout from '../../layouts/main.layout';
 export default function Users({ dataUsers, cookies, host }) {
   return (
     <MainLayout
-      title={'Users'}
-      name={cookies.user_name.split(' ')[0]}
-      host={host}
     >
       <div className="container header">
         <h1>Зарегистрированные пользователи</h1>
