@@ -1,39 +1,42 @@
 import { useEffect, useState } from 'react';
 
-export default function Suggestions() {
+export default function Suggestions({ children }) {
   const [sugData, setSugData] = useState(null);
   const [host, setHost] = useState('');
   const [cookies, setCookies] = useState(null);
 
-  useEffect(() =>
-    setHost(`${window.location.protocol}//${window.location.host}`),
+  useEffect(
+    () => setHost(`${window.location.protocol}//${window.location.host}`),
+    [],
   );
-  useEffect(() =>
-    setCookies(
-      Object.fromEntries(
-        new URLSearchParams(document.cookie.replace(/; /g, '&')),
+  useEffect(
+    () =>
+      setCookies(
+        Object.fromEntries(
+          new URLSearchParams(document.cookie.replace(/; /g, '&')),
+        ),
       ),
-    ),
+    [],
   );
 
-  async function fetchSugData() {
-    const resSuggest: Response = await fetch(`${host}/server/suggest`);
-    const suggestionsData = await resSuggest.json();
-    if (!suggestionsData) {
-      alert('Что-то пошло не так, попробуйте еще раз');
-    }
-    suggestionsData.sort((a, b) => {
-      return Date.parse(b.sug_date) - Date.parse(a.sug_date);
-    });
+  // async function fetchSugData() {
+  //   const resSuggest = await fetch(`${host}/server/suggest`);
+  //   const suggestionsData = await resSuggest.json();
+  //   if (!suggestionsData) {
+  //     alert('Что-то пошло не так, попробуйте еще раз');
+  //   }
+  //   suggestionsData.sort((a, b) => {
+  //     return Date.parse(b.sug_date) - Date.parse(a.sug_date);
+  //   });
 
-    setSugData({
-      suggestions: suggestionsData,
-    });
-  }
+  //   setSugData({
+  //     suggestions: suggestionsData,
+  //   });
+  // }
 
-  useEffect(() => {
-    fetchSugData();
-  }, []);
+  // useEffect(() => {
+  //   fetchSugData();
+  // }, []);
 
   async function sendSug(event) {
     event.preventDefault();
@@ -64,7 +67,7 @@ export default function Suggestions() {
           break;
       }
       event.target.sug_text.value = '';
-      fetchSugData();
+      // fetchSugData();
       event.target.submit.disabled = false;
     } else {
       event.target.submit.disabled = false;
@@ -87,17 +90,7 @@ export default function Suggestions() {
             Отправить
           </button>
         </form>
-        {sugData ? (
-          sugData.suggestions.map((elem) => (
-            <div key={elem.sug_id}>
-              <hr />
-              <h5>{elem.sug_text}</h5>
-              <p>{elem.sug_date.toString()}</p>
-            </div>
-          ))
-        ) : (
-          <div className="donut" />
-        )}
+        {children}
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-export default function HelpButton(helpText) {
+export default function HelpButton({ helpText }) {
   return (
     <>
       <button
