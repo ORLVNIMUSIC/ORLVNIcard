@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export default function SuggestionsData({ sugData }) {
   return (
     <>
@@ -5,7 +7,7 @@ export default function SuggestionsData({ sugData }) {
         <div key={elem.sug_id}>
           <hr />
           <h5>{elem.sug_text}</h5>
-          <p>{elem.sug_date.toString()}</p>
+          <p>{dayjs(elem.sug_date.toString()).toString()}</p>
         </div>
       ))}
     </>
