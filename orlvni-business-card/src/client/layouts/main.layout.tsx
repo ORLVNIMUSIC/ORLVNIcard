@@ -17,23 +17,23 @@ export default function MainLayout({ children, title, name, host }) {
     event.target.disabled = false;
   }
 
-  const [loading, setLoading] = React.useState(false);
-  React.useEffect(() => {
-    const start = () => {
-      setLoading(true);
-    };
-    const end = () => {
-      setLoading(false);
-    };
-    Router.events.on('routeChangeStart', start);
-    Router.events.on('routeChangeComplete', end);
-    Router.events.on('routeChangeError', end);
-    return () => {
-      Router.events.off('routeChangeStart', start);
-      Router.events.off('routeChangeComplete', end);
-      Router.events.off('routeChangeError', end);
-    };
-  }, []);
+  // const [loading, setLoading] = React.useState(false);
+  // React.useEffect(() => {
+  //   const start = () => {
+  //     setLoading(true);
+  //   };
+  //   const end = () => {
+  //     setLoading(false);
+  //   };
+  //   Router.events.on('routeChangeStart', start);
+  //   Router.events.on('routeChangeComplete', end);
+  //   Router.events.on('routeChangeError', end);
+  //   return () => {
+  //     Router.events.off('routeChangeStart', start);
+  //     Router.events.off('routeChangeComplete', end);
+  //     Router.events.off('routeChangeError', end);
+  //   };
+  // }, []);
   return (
     <>
       <Head>
@@ -65,7 +65,12 @@ export default function MainLayout({ children, title, name, host }) {
 
         <button onClick={LogOut}>Выйти из аккаунта</button>
       </nav>
-      <main>{loading ? <div className="donut" /> : children}</main>
+      <main>
+        {
+          // loading ? <div className="donut" /> :
+          children
+        }
+      </main>
     </>
   );
 }

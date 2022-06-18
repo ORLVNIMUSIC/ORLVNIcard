@@ -2,27 +2,27 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import MainLayout from '../layouts/main.layout';
 
-export default function Index({ cookies, host }) {
-  const [sugData, setSugData] = useState(null);
+export default function Index({ cookies, host, sugData }) {
+  // const [sugData, setSugData] = useState(null);
 
-  async function fetchSugData() {
-    const resSuggest: Response = await fetch(`${host}/server/suggest`);
-    const suggestionsData = await resSuggest.json();
-    if (!suggestionsData) {
-      alert('Что-то пошло не так, попробуйте еще раз');
-    }
-    suggestionsData.sort((a, b) => {
-      return Date.parse(b.sug_date) - Date.parse(a.sug_date);
-    });
+  // async function fetchSugData() {
+  //   const resSuggest: Response = await fetch(`${host}/server/suggest`);
+  //   const suggestionsData = await resSuggest.json();
+  //   if (!suggestionsData) {
+  //     alert('Что-то пошло не так, попробуйте еще раз');
+  //   }
+  //   suggestionsData.sort((a, b) => {
+  //     return Date.parse(b.sug_date) - Date.parse(a.sug_date);
+  //   });
 
-    setSugData({
-      suggestions: suggestionsData,
-    });
-  }
+  //   setSugData({
+  //     suggestions: suggestionsData,
+  //   });
+  // }
 
-  useEffect(() => {
-    fetchSugData();
-  }, []);
+  // useEffect(() => {
+  //   fetchSugData();
+  // }, []);
 
   async function sendSug(event) {
     event.preventDefault();
@@ -53,7 +53,7 @@ export default function Index({ cookies, host }) {
           break;
       }
       event.target.sug_text.value = '';
-      fetchSugData();
+      // fetchSugData();
       event.target.submit.disabled = false;
     } else {
       event.target.submit.disabled = false;
@@ -106,7 +106,7 @@ export default function Index({ cookies, host }) {
           </button>
         </form>
         {sugData ? (
-          sugData.suggestions.map((elem) => (
+          sugData.map((elem) => (
             <div key={elem.sug_id}>
               <hr />
               <h5>{elem.sug_text}</h5>
@@ -126,7 +126,9 @@ export async function getServerSideProps(ctx) {
   const { cookies } = req;
   const host: string = `${process.env.PROTOCOL}://${req.rawHeaders[1]}`;
 
+  const sugData = await (await fetch(`${host}/server/suggest`)).json();
+
   return {
-    props: { cookies, host },
+    props: { cookies, host, sugData },
   };
 }
