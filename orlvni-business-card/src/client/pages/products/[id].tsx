@@ -47,11 +47,7 @@ export default function Product({ dataProducts, dataUsers, cookies, host }) {
     event.target.disabled = false;
   }
   return (
-    <MainLayout
-      title={'Product'}
-      name={cookies.user_name.split(' ')[0]}
-      host={host}
-    >
+    <MainLayout>
       <div className="container header">
         <h1>{dataProducts.product_name}</h1>
         <Link href={'/products'}>
