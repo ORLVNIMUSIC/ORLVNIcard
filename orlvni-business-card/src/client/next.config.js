@@ -1,12 +1,3 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   distDir: '../../.next',
-  reactStrictMode: true,
-  experimental: {
-    runtime: 'nodejs',
-    serverComponents: true,
-    concurrentFeatures: true,
-  },
 };
-
-module.exports = nextConfig;

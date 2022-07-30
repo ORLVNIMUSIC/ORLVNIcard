@@ -44,7 +44,11 @@ export default function CreateProduct({ cookies, host }) {
     }
   }
   return (
-    <MainLayout>
+    <MainLayout
+      title={'Create product'}
+      name={cookies.user_name.split(' ')[0]}
+      host={host}
+    >
       <div className="container header">
         <h1>Страница создания услуги</h1>
         <Link href={'/products'}>

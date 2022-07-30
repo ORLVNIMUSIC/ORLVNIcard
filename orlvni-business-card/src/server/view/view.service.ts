@@ -11,7 +11,6 @@ export class ViewService implements OnModuleInit {
   constructor(private configService: ConfigService) {}
 
   async onModuleInit(): Promise<void> {
-    process.env.__NEXT_REACT_ROOT = 'true';
     try {
       this.server = createServer({
         dev: this.configService.get<string>('NODE_ENV') !== 'production',
